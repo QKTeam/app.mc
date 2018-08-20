@@ -2,7 +2,7 @@
   "name": "app.mc",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "/src/router.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",

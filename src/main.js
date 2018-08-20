@@ -1,3 +1,7 @@
 import greeting from './js/greeting';
+import router from './router';
 
-window.onload = greeting;
+router.init();
+window.onload = () => {
+  greeting();
+};

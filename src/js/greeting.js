@@ -1,7 +1,9 @@
 export default function greeting() {
-  const greet = '<div>'
+  const HTML = '<div>'
               + ' hello, world!'
               + '</div>';
 
-  document.body.innerHTML = greet;
+  const greet = document.createElement('div');
+  greet.innerHTML = HTML;
+  document.body.appendChild(greet);
 }
