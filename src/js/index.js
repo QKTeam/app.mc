@@ -1,4 +1,4 @@
-export default function greeting() {
+function greeting() {
   const HTML = '<div>'
               + ' hello, world!'
               + '</div>';
@@ -7,3 +7,6 @@ export default function greeting() {
   greet.innerHTML = HTML;
   document.body.appendChild(greet);
 }
+
+export { default as register } from './auth/register';
+export default greeting;
