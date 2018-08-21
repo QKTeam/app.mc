@@ -1,6 +1,12 @@
+import service from '../../service';
+
 function register() {
   function submit() {
-    console.log('haha');
+    const data = {
+      email: document.querySelector('#email').value,
+      password: document.querySelector('#password').value,
+    };
+    service.post('/auth/login', data);
   }
 
   const element = ''
