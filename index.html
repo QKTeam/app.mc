@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script src="./build/main.bundle.js"></script>
+  <meta charset="utf-8" />
+  <title></title>
+  <script src="./build/main.bundle.js"></script>
 </head>
+
 <body>
-    <a href="#/">turn white</a>
-    <a href="#/orange">turn orange</a>
-    <a href="#/purple">turn purple</a> 
+  <div style="width: 100%; position: relative; top: 80px">
+    <div class="card" style="width: 350px; margin: auto">
+      <div class="card-body">
+        <form onsubmit="return false">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              aria-describedby="emailHelp"
+              placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="repeatPassword">Repeat password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="repeatPassword"
+              placeholder="Repeat password">
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

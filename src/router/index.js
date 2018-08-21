@@ -1,20 +1,13 @@
 import Router from './Router';
-
-// change Page anything
-function changeBgColor(color) {
-  document.body.style.backgroundColor = color;
-}
+import * as Components from '../js';
 
 const router = new Router();
 
 router.route('/', () => {
-  changeBgColor('white');
+  Components.default();
 });
-router.route('/orange', () => {
-  changeBgColor('orange');
-});
-router.route('/purple', () => {
-  changeBgColor('purple');
+router.route('/register', () => {
+  Components.register();
 });
 
 export default router;
