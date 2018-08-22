@@ -45,11 +45,11 @@ function login() {
           <form onsubmit="return false">
             <div class="form-group">
               <label for="email">Email address</label>
-              <input 
-                id="email" 
-                type="email" 
-                class="form-control" 
-                aria-describedby="emailHelp" 
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                aria-describedby="emailHelp"
                 placeholder="Enter email">
               <p id="error-email"></p>
             </div>
@@ -65,8 +65,8 @@ function login() {
       </div>
     </div>`;
 
-  $('body').empty();
-  $('body').append(element);
+  $('#main').empty();
+  $('#main').append(element);
 
   $('#tabs-teacher').click(() => {
     data.type = 0;
