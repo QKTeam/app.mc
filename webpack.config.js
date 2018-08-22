@@ -10,7 +10,7 @@ module.exports = {
     watchContentBase: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.1.148:3000',
+        target: 'http://139.199.157.185:3000',
         pathRewrite: { '^/api': '' },
       },
     },

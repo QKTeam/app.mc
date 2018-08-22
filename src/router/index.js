@@ -9,5 +9,8 @@ router.route('/', () => {
 router.route('/register', () => {
   Components.register();
 });
+router.route('/login', () => {
+  Components.login();
+});
 
 export default router;
