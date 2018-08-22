@@ -7,6 +7,7 @@ module.exports = {
     filename: 'main.bundle.js',
   },
   devServer: {
+    watchContentBase: true,
     proxy: {
       '/api': {
         target: 'http://192.168.1.148:3000',
