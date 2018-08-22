@@ -7,9 +7,11 @@ router.route('/', () => {
   Components.default();
 });
 router.route('/register', () => {
+  Components.default();
   Components.register();
 });
 router.route('/login', () => {
+  Components.default();
   Components.login();
 });
 

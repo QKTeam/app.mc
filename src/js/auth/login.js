@@ -1,21 +1,20 @@
 import sha256 from 'sha256';
-import $ from 'jquery';
 import service from '../../service';
 
 function login() {
   const data = {
     type: 1,
     get email() {
-      return $('#email').val();
+      return document.querySelector('#email').value;
     },
     set email(val) {
-      $('#email').val(val);
+      document.querySelector('#email').value = val;
     },
     get password() {
-      return $('#password').val();
+      return document.querySelector('#password').value;
     },
     set password(val) {
-      $('#password').val(val);
+      document.querySelector('#password').value = val;
     },
   };
   function submit() {
@@ -58,31 +57,30 @@ function login() {
               <input type="password" class="form-control" id="password" placeholder="Password">
               <p id="error-password"></p>
             </div>
-            <div id="register-remind">${registerRemind}</div>
+            <div id="register-remind">document.querySelector{registerRemind}</div>
             <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
           </form>
         </div>
       </div>
     </div>`;
 
-  $('#main').empty();
-  $('#main').append(element);
+  document.querySelector('#main').innerHTML = element;
 
-  $('#tabs-teacher').click(() => {
+  document.querySelector('#tabs-teacher').addEventListener('click', () => {
     data.type = 0;
-    $('#tabs-teacher').addClass('active');
-    $('#tabs-student').removeClass('active');
-    $('#register-remind').empty();
+    document.querySelector('#tabs-teacher').classList.add('active');
+    document.querySelector('#tabs-student').classList.remove('active');
+    document.querySelector('#register-remind').innerHTML = '';
   });
 
-  $('#tabs-student').click(() => {
+  document.querySelector('#tabs-student').addEventListener('click', () => {
     data.type = 1;
-    $('#tabs-student').addClass('active');
-    $('#tabs-teacher').removeClass('active');
-    $('#register-remind').append(registerRemind);
+    document.querySelector('#tabs-student').classList.add('active');
+    document.querySelector('#tabs-teacher').classList.remove('active');
+    document.querySelector('#register-remind').innerHTML = registerRemind;
   });
 
-  $('#login-submit').click(() => {
+  document.querySelector('#login-submit').addEventListener('click', () => {
     submit();
   });
 }
