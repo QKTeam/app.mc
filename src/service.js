@@ -3,6 +3,7 @@ import axios from 'axios';
 const defaultRequestConfig = (config) => {
   const newConfig = config;
   newConfig.headers['Api-Token'] = window.localStorage['Api-Token'];
+  newConfig.headers['Captcha-Token'] = window.localStorage['Captcha-Token'];
   return newConfig;
 };
 

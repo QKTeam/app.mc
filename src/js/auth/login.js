@@ -3,7 +3,6 @@ import service from '../../service';
 
 function login() {
   const data = {
-    type: 1,
     get email() {
       return document.querySelector('#email').value;
     },
@@ -16,16 +15,39 @@ function login() {
     set password(val) {
       document.querySelector('#password').value = val;
     },
+    get captcha() {
+      return document.querySelector('#captcha').value;
+    },
+    set captcha(val) {
+      document.querySelector('#captcha').value = val;
+    },
   };
+
+  let captchaSVG = '';
+
+  function getCaptcha() {
+    service.get('/auth/captcha').then((res) => {
+      window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
+      captchaSVG = res.data;
+      if (document.querySelector('#captchaSVG')) {
+        document.querySelector('#captchaSVG').innerHTML = captchaSVG;
+      }
+    });
+  }
+
   function submit() {
     service.post('/auth/login', {
       email: data.email,
       password: sha256(data.password),
-      type: data.type,
+      captcha: data.captcha,
     }).then((res) => {
       console.log(res);
     });
   }
+
+  (function create() {
+    getCaptcha();
+  }());
 
   const registerRemind = '<a href="#/register">No account? Click here register!</a>';
 
@@ -57,7 +79,13 @@ function login() {
               <input type="password" class="form-control" id="password" placeholder="Password">
               <p id="error-password"></p>
             </div>
-            <div id="register-remind">document.querySelector{registerRemind}</div>
+            <div id="captchaForm" class="form-group">
+              <label for="captcha">Captcha</label>
+              <input type="captcha" class="form-control" id="captcha" placeholder="captcha">
+              <p id="error-captcha"></p>
+            </div>
+            <div id="captchaSVG">${captchaSVG}</div>
+            <div id="register-remind">${registerRemind}</div>
             <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
           </form>
         </div>
@@ -67,14 +95,12 @@ function login() {
   document.querySelector('#main').innerHTML = element;
 
   document.querySelector('#tabs-teacher').addEventListener('click', () => {
-    data.type = 0;
     document.querySelector('#tabs-teacher').classList.add('active');
     document.querySelector('#tabs-student').classList.remove('active');
     document.querySelector('#register-remind').innerHTML = '';
   });
 
   document.querySelector('#tabs-student').addEventListener('click', () => {
-    data.type = 1;
     document.querySelector('#tabs-student').classList.add('active');
     document.querySelector('#tabs-teacher').classList.remove('active');
     document.querySelector('#register-remind').innerHTML = registerRemind;
@@ -82,6 +108,10 @@ function login() {
 
   document.querySelector('#login-submit').addEventListener('click', () => {
     submit();
+  });
+
+  document.querySelector('#captchaSVG').addEventListener('click', () => {
+    getCaptcha();
   });
 }
 
