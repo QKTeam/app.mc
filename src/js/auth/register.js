@@ -21,8 +21,25 @@ function register() {
     set repeatPassword(val) {
       document.querySelector('#repeatPassword').value = val;
     },
-    type: 1,
+    get captcha() {
+      return document.querySelector('#captcha').value;
+    },
+    set captcha(val) {
+      document.querySelector('#captcha').value = val;
+    },
   };
+
+  let captchaSVG = '';
+
+  function getCaptcha() {
+    service.get('/auth/captcha').then((res) => {
+      window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
+      captchaSVG = res.data;
+      if (document.querySelector('#captchaSVG')) {
+        document.querySelector('#captchaSVG').innerHTML = captchaSVG;
+      }
+    });
+  }
   function submit() {
     if (data.password !== data.repeatPassword) {
       document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
@@ -31,11 +48,15 @@ function register() {
     service.post('/auth/register', {
       email: data.email,
       password: sha256(data.password),
-      type: data.type,
+      captcha: data.captcha,
     }).then((res) => {
       console.log(res);
     });
   }
+
+  (function create() {
+    getCaptcha();
+  }());
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
@@ -66,10 +87,12 @@ function register() {
                 placeholder="Repeat password">
               <p id="error-repeatPassword"></p>
             </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div id="captchaForm" class="form-group">
+              <label for="captcha">Captcha</label>
+              <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
+              <p id="error-captcha"></p>
             </div>
+            <div id="captchaSVG">${captchaSVG}</div>
             <button id="register-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
           </form>
         </div>
@@ -88,6 +111,10 @@ function register() {
     } else {
       document.querySelector('#error-repeatPassword').innerText = '';
     }
+  });
+
+  document.querySelector('#captchaSVG').addEventListener('click', () => {
+    getCaptcha();
   });
 }
 

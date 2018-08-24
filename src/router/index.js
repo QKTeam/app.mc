@@ -6,13 +6,17 @@ const router = new Router();
 router.route('/', () => {
   Components.default();
 });
-router.route('/register', () => {
+router.route('/auth/register', () => {
   Components.default();
   Components.register();
 });
-router.route('/login', () => {
+router.route('/auth/login', () => {
   Components.default();
   Components.login();
+});
+router.route('/auth/verify', () => {
+  Components.default();
+  Components.verify();
 });
 
 export default router;

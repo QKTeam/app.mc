@@ -49,7 +49,7 @@ function login() {
     getCaptcha();
   }());
 
-  const registerRemind = '<a href="#/register">No account? Click here register!</a>';
+  const registerRemind = '<a href="#/auth/register">No account? Click here register!</a>';
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
@@ -81,7 +81,7 @@ function login() {
             </div>
             <div id="captchaForm" class="form-group">
               <label for="captcha">Captcha</label>
-              <input type="captcha" class="form-control" id="captcha" placeholder="captcha">
+              <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
               <p id="error-captcha"></p>
             </div>
             <div id="captchaSVG">${captchaSVG}</div>

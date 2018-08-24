@@ -16,7 +16,7 @@ function layout() {
           </ul>
           <ul class="navbar-nav" style="position: absolute; right: 0;">
             <li class="nav-item">
-              <a class="nav-link" href="#/login">Sign in</a>
+              <a class="nav-link" href="#/auth/login">Sign in</a>
             </li>
           </ul>
         </div>
@@ -30,4 +30,5 @@ function layout() {
 
 export { default as register } from './auth/register';
 export { default as login } from './auth/login';
+export { default as verify } from './auth/verify';
 export default layout;
