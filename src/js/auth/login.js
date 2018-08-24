@@ -41,7 +41,9 @@ function login() {
       password: sha256(data.password),
       captcha: data.captcha,
     }).then((res) => {
-      console.log(res);
+      window.localStorage['Api-Token'] = res.data.token;
+      window.localStorage.user_id = res.data.user_id;
+      window.localStorage.access = res.data.access;
     });
   }
 

@@ -1,8 +1,12 @@
 import service from '../../service';
 
-function verify() {
+function verify(router) {
   function activation() {
-    service.put(`/auth/active${window.location.search}`);
+    service.put(`/auth/active?${router.query}`).then((res) => {
+      window.localStorage['Api-Token'] = res.data.token;
+      window.localStorage.user_id = res.data.user_id;
+      window.localStorage.access = res.data.access;
+    });
   }
 
   (function create() {

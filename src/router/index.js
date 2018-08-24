@@ -7,16 +7,19 @@ router.route('/', () => {
   Components.default();
 });
 router.route('/auth/register', () => {
-  Components.default();
-  Components.register();
+  Components.default(router);
+  Components.register(router);
 });
 router.route('/auth/login', () => {
-  Components.default();
-  Components.login();
+  Components.default(router);
+  Components.login(router);
 });
 router.route('/auth/verify', () => {
-  Components.default();
-  Components.verify();
+  Components.default(router);
+  Components.verify(router);
+});
+router.route('/competition', () => {
+  Components.default(router);
 });
 
 export default router;
