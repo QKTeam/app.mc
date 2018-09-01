@@ -82,7 +82,7 @@ function login() {
               <p id="error-password"></p>
             </div>
             <div id="captchaForm" class="form-group">
-              <label for="captcha">Captcha</label>
+              <label for="captcha">验证码</label>
               <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
               <p id="error-captcha"></p>
             </div>

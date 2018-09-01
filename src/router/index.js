@@ -21,5 +21,9 @@ router.route('/auth/verify', () => {
 router.route('/competition', () => {
   Components.default(router);
 });
+router.route('/center', () => {
+  Components.default(router);
+  Components.base(router);
+});
 
 export default router;
