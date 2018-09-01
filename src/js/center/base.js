@@ -1,8 +1,9 @@
+import $ from 'jquery';
 import service from '../../service';
+import pwdModal from './pwdModal';
 
 function base() {
   const data = {
-    college_id: 0,
     set email(val) {
       document.querySelector('#email').innerText = val;
     },
@@ -120,93 +121,105 @@ function base() {
   }());
 
   const element = `
-  <div class="card" style="width: 600px; margin: auto">
-    <div class="card-title">
-      <h3>Center</h3>
-    </div>
-    <div class="card-body">
-      <form onsubmit="return false">
-        <div class="form-group">
-          <label for="email">电子邮件</label>
-          <span id="email"></span>
-          <button class="btn btn-primary">修改密码</button>
-        </div>
-        <div class="form-group">
-          <label for="truename">姓名</label>
-          <input id="truename" class="form-control" placeholder="姓名">
-          <p id="error-truename"></p>
-        </div>
-        <label for="gender">性别</label>
-        <div id="gender">
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="gender"
-              id="male"
-              value="0">
-            <label class="form-check-label" for="male">男</label>
+    <div class="card" style="width: 600px; margin: auto">
+      <div class="card-title">
+        <h3>Center</h3>
+      </div>
+      <div class="card-body">
+        <button
+          id="showModal"
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#passwordModal"
+          >修改密码</button>
+        <form onsubmit="return false">
+          <div class="form-group">
+            <label for="email">电子邮件</label>
+            <span id="email"></span>
           </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="gender"
-              id="female"
-              value="1">
-            <label class="form-check-label" for="female">女</label>
+          <div class="form-group">
+            <label for="truename">姓名</label>
+            <input id="truename" class="form-control" placeholder="姓名">
+            <p id="error-truename"></p>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="qqAcount">qq帐户</label>
-          <input id="qqAcount" class="form-control" placeholder="qq帐户">
-          <p id="error-qqAcount"></p>
-        </div>
-        <div class="form-group">
-          <label for="phone">电话</label>
-          <input id="phone" class="form-control" placeholder="电话">
-          <p id="error-phone"></p>
-        </div>
-        <div class="form-group">
-          <label for="idNumber">身份证号</label>
-          <input id="idNumber" class="form-control" placeholder="身份证号">
-          <p id="error-idNumber"></p>
-        </div>
-        <div class="form-group">
-          <label for="schoolNumber">学号</label>
-          <input id="schoolNumber" class="form-control" placeholder="学号">
-          <p id="error-schoolNumber"></p>
-        </div>
-        <div class="form-group">
-          <label for="college">学院</label>
-          <select class="custom-select" id="college">
-            <option selected>请选择...</option>
-            <option>其他</option>
-            <option>empty</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="major">专业</label>
-          <input id="major" class="form-control" placeholder="专业">
-          <p id="error-major"></p>
-        </div>
-        <div id="captchaForm" class="form-group">
-          <label for="captcha">验证码</label>
-          <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
-          <p id="error-captcha"></p>
-        </div>
-        <div id="captchaSVG">${captchaSVG}</div>
-        <div style="text-align: center">
-          <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>`;
+          <label for="gender">性别</label>
+          <div id="gender">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="0">
+              <label class="form-check-label" for="male">男</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="1">
+              <label class="form-check-label" for="female">女</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="qqAcount">qq帐户</label>
+            <input id="qqAcount" class="form-control" placeholder="qq帐户">
+            <p id="error-qqAcount"></p>
+          </div>
+          <div class="form-group">
+            <label for="phone">电话</label>
+            <input id="phone" class="form-control" placeholder="电话">
+            <p id="error-phone"></p>
+          </div>
+          <div class="form-group">
+            <label for="idNumber">身份证号</label>
+            <input id="idNumber" class="form-control" placeholder="身份证号">
+            <p id="error-idNumber"></p>
+          </div>
+          <div class="form-group">
+            <label for="schoolNumber">学号</label>
+            <input id="schoolNumber" class="form-control" placeholder="学号">
+            <p id="error-schoolNumber"></p>
+          </div>
+          <div class="form-group">
+            <label for="college">学院</label>
+            <select class="custom-select" id="college">
+              <option selected>请选择...</option>
+              <option>其他</option>
+              <option>empty</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="major">专业</label>
+            <input id="major" class="form-control" placeholder="专业">
+            <p id="error-major"></p>
+          </div>
+          <div id="captchaForm" class="form-group">
+            <label for="captcha">验证码</label>
+            <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
+            <p id="error-captcha"></p>
+          </div>
+          <div id="captchaSVG">${captchaSVG}</div>
+          <div style="text-align: center">
+            <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>`;
+
+  pwdModal();
 
   document.querySelector('#main').innerHTML = element;
 
   document.querySelector('#base-submit').addEventListener('click', () => {
     submit();
+  });
+
+  document.querySelector('#showModal').addEventListener('click', () => {
+    $(() => $('#passwordModal').modal('toggle'));
   });
 }
 
