@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import sha256 from 'sha256';
 import service from '../../service';
 
 function pwdModal() {
@@ -30,8 +31,8 @@ function pwdModal() {
     }
 
     service.put('/user/changePwd', {
-      password_old: data.oldPassword,
-      password_new: data.password,
+      password_old: sha256(data.oldPassword),
+      password_new: sha256(data.password),
     }).then((res) => {
       console.log(res.data);
     });
