@@ -18,12 +18,17 @@ router.route('/auth/verify', () => {
   Components.default(router);
   Components.verify(router);
 });
-router.route('/competition', () => {
-  Components.default(router);
-});
 router.route('/center', () => {
   Components.default(router);
   Components.base(router);
+});
+router.route('/competition/list', () => {
+  Components.default(router);
+  Components.competitionList(router);
+});
+router.route('/competition/create', () => {
+  Components.default(router);
+  Components.competitionCreate(router);
 });
 
 export default router;
