@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 function layout() {
   const element = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,8 +22,8 @@ function layout() {
     </nav>
     <div class="container" id="main" style="margin-top: 30px"></div>`;
 
-  $('body').empty();
-  $('body').append(element);
+  window.$('body').empty();
+  window.$('body').append(element);
 }
 
 export { default as register } from './auth/register';

@@ -1,120 +1,90 @@
-import 'bootstrap-datetimepicker-npm';
 import service from '../../service';
 
 function competitionCreate() {
   const data = {
-    get truename() {
-      return document.querySelector('#truename').value;
+    get name() {
+      return document.querySelector('#name').value;
     },
-    set truename(val) {
-      document.querySelector('#truename').value = val;
+    set name(val) {
+      document.querySelector('#name').value = val;
     },
-    get gender() {
-      return document.querySelector('input[name="gender"]:checked').value;
+    get competitionArea() {
+      return document.querySelector('#competitionArea').value;
     },
-    set gender(val) {
-      if (val === 0) {
-        document.querySelector('#male').checked = true;
-      } else if (val === 1) {
-        document.querySelector('#female').checked = true;
-      }
+    set competitionArea(val) {
+      document.querySelector('#competitionArea').value = val;
     },
-    get qqAcount() {
-      return document.querySelector('#qqAcount').value;
+    get schoolName() {
+      return document.querySelector('#schoolName').value;
     },
-    set qqAcount(val) {
-      document.querySelector('#qqAcount').value = val;
+    set schoolName(val) {
+      document.querySelector('#schoolName').value = val;
     },
-    get phone() {
-      return document.querySelector('#phone').value;
+    get introduction() {
+      return document.querySelector('#introduction').value;
     },
-    set phone(val) {
-      document.querySelector('#phone').value = val;
+    set introduction(val) {
+      document.querySelector('#introduction').value = val;
     },
-    get idNumber() {
-      return document.querySelector('#idNumber').value;
+    get principalName() {
+      return document.querySelector('#principalName').value;
     },
-    set idNumber(val) {
-      document.querySelector('#idNumber').value = val;
+    set principalName(val) {
+      document.querySelector('#principalName').value = val;
     },
-    get schoolNumber() {
-      return document.querySelector('#schoolNumber').value;
+    get principalEmail() {
+      return document.querySelector('#principalEmail').value;
     },
-    set schoolNumber(val) {
-      document.querySelector('#schoolNumber').value = val;
+    set principalEmail(val) {
+      document.querySelector('#principalEmail').value = val;
     },
-    get college() {
-      return document.querySelector('#college').value;
+    get principalPhone() {
+      return document.querySelector('#principalPhone').value;
     },
-    set college(val) {
-      const list = document.querySelector('#college').children;
-      for (let i = 0; i < list.length; i += 1) {
-        if (list[i] === val) {
-          list[i].selected = true;
-          break;
-        }
-      }
+    set principalPhone(val) {
+      document.querySelector('#principalPhone').value = val;
     },
-    get major() {
-      return document.querySelector('#major').value;
+    get startTime() {
+      return document.querySelector('#startTime').value;
     },
-    set major(val) {
-      document.querySelector('#major').value = val;
+    set startTime(val) {
+      document.querySelector('#startTime').value = val;
     },
-    get captcha() {
-      return document.querySelector('#captcha').value;
+    get endTime() {
+      return document.querySelector('#endTime').value;
     },
-    set captcha(val) {
-      document.querySelector('#captcha').value = val;
+    set endTime(val) {
+      document.querySelector('#endTime').value = val;
     },
   };
 
-  // function submit() {
-  //   service.put('/user/profile', {
-  //     truename: data.truename,
-  //     gender: +data.gender,
-  //     qq_number: data.qqAcount,
-  //     phone: data.phone,
-  //     id_code: data.idNumber,
-  //     college: data.college,
-  //     major: data.major,
-  //     school_number: data.schoolNumber,
-  //   }).then((res) => {
-  //     console.log(res.data);
-  //   });
-  // }
-
-  let captchaSVG = '';
-
-  function getCaptcha() {
-    service.get('/auth/captcha').then((res) => {
-      window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
-      captchaSVG = res.data;
-      if (document.querySelector('#captchaSVG')) {
-        document.querySelector('#captchaSVG').innerHTML = captchaSVG;
-      }
-    });
-  }
-
-  function getData() {
-    service.get('/auth').then((res) => {
+  function submit() {
+    service.post('/race', {
+      name: data.name,
+      competition_area: data.competitionArea,
+      school_name: data.schoolName,
+      introduction: data.introduction,
+      principal_name: data.principalName,
+      principal_email: data.principalEmail,
+      principal_phone: data.principalPhone,
+      start_time: data.startTime,
+      end_time: data.endTime,
+    }).then((res) => {
       console.log(res.data);
-      data.email = res.data.email || '';
-      data.truename = res.data.truename || '';
-      data.gender = res.data.gender || 0;
-      data.qqAcount = res.data.qq_number || '';
-      data.phone = res.data.phone || '';
-      data.idNumber = res.data.id_code || '';
-      data.schoolNumber = res.data.school_number || '';
-      data.college = res.data.college || '请选择...';
-      data.major = res.data.major || '';
     });
   }
 
-  (function create() {
-    getData();
-    getCaptcha();
-  }());
+  function setData() {
+    data.name = '';
+    data.competitionArea = '四川省';
+    data.schoolName = '电子科技大学';
+    data.introduction = '';
+    data.principalName = '';
+    data.principalEmail = '';
+    data.principalPhone = '';
+    data.startTime = '';
+    data.endTime = '';
+  }
 
   const element = `
     <div class="card" style="width: 800px; margin: auto">
@@ -125,49 +95,53 @@ function competitionCreate() {
         <form onsubmit="return false">
           <div class="form-group">
             <label for="name">比赛名称</label>
-            <input id="name" class="form-control" placeholder="比赛名称">
+            <input id="name" class="form-control">
             <p id="error-name"></p>
           </div>
           <div class="form-group">
             <label for="competitionArea">比赛地区</label>
-            <input id="competitionArea" class="form-control" placeholder="比赛地区">
+            <input id="competitionArea" class="form-control">
             <p id="error-competitionArea"></p>
           </div>
           <div class="form-group">
             <label for="schoolName">学校名称</label>
-            <input id="schoolName" class="form-control" placeholder="学校名称">
+            <input id="schoolName" class="form-control">
             <p id="error-schoolName"></p>
           </div>
           <div class="form-group">
-            <label for="introduction">比赛介绍</label>
-            <input id="introduction" class="form-control" placeholder="比赛介绍">
-            <p id="error-introduction"></p>
-          </div>
-          <div class="form-group">
             <label for="principalName">负责人姓名</label>
-            <input id="principalName" class="form-control" placeholder="负责人姓名">
+            <input id="principalName" class="form-control">
             <p id="error-principalName"></p>
           </div>
           <div class="form-group">
             <label for="principalEmail">负责人邮箱</label>
-            <input id="principalEmail" class="form-control" placeholder="负责人邮箱">
+            <input id="principalEmail" class="form-control">
             <p id="error-principalEmail"></p>
           </div>
           <div class="form-group">
             <label for="principalPhone">负责人电话</label>
-            <input id="principalPhone" class="form-control" placeholder="负责人电话">
+            <input id="principalPhone" class="form-control">
             <p id="error-principalPhone"></p>
           </div>
-          <div class="form-group">
-            <label for="startTime">报名开始时间</label>
-            <input id="startTime" class="form-control" placeholder="报名开始时间">
-            <p id="error-startTime"></p>
+          <div>
+            <div class="form-group" style="display: inline-block; width: 45%">
+              <label for="startTime">报名开始时间</label>
+              <input id="startTime" class="form-control">
+              <p id="error-startTime"></p>
+            </div>
+            <div class="form-group" style="display: inline-block; width: 45%">
+              <label for="endTime">报名结束时间</label>
+              <input id="endTime" class="form-control">
+              <p id="error-endTime"></p>
+            </div>
           </div>
-          <div id="datetimepicker"></div>
           <div class="form-group">
-            <label for="endTime">报名结束时间</label>
-            <input id="endTime" class="form-control" placeholder="报名结束时间">
-            <p id="error-endTime"></p>
+            <label for="introduction">比赛介绍</label>
+            <textarea id="introduction" class="form-control"></textarea>
+            <p id="error-introduction"></p>
+          </div>
+          <div style="text-align: center">
+            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">Submit</button>
           </div>
         </form>
       </div>
@@ -175,8 +149,24 @@ function competitionCreate() {
 
   document.querySelector('#main').innerHTML = element;
 
+  document.querySelector('#race-submit').addEventListener('click', () => {
+    submit();
+  });
+
   window.$(() => {
-    window.$('#datetimepicker').datetimepicker();
+    window.flatpickr('#startTime', {
+      dateFormat: 'Y-m-d H:i:ss',
+      enableTime: true,
+      time_24hr: true,
+      locale: 'zh',
+    });
+    window.flatpickr('#endTime', {
+      dateFormat: 'Y-m-d H:i:ss',
+      enableTime: true,
+      time_24hr: true,
+      locale: 'zh',
+    });
+    setData();
   });
 }
 

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import sha256 from 'sha256';
 import service from '../../service';
 
@@ -79,7 +78,7 @@ function pwdModal() {
       </div>
     </div>`;
 
-  $('body').append(modal);
+  window.$('body').append(modal);
 
   document.querySelector('#repeatPassword').addEventListener('input', () => {
     if (data.password !== data.repeatPassword) {

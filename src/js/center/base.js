@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import service from '../../service';
 import pwdModal from './pwdModal';
 
@@ -219,7 +218,7 @@ function base() {
   });
 
   document.querySelector('#showModal').addEventListener('click', () => {
-    $(() => $('#passwordModal').modal('toggle'));
+    window.$(() => window.$('#passwordModal').modal('toggle'));
   });
 }
 
