@@ -1,3 +1,4 @@
+import moment from 'moment';
 import service from '../../service';
 
 function competitionCreate() {
@@ -67,8 +68,8 @@ function competitionCreate() {
       principal_name: data.principalName,
       principal_email: data.principalEmail,
       principal_phone: data.principalPhone,
-      start_time: data.startTime,
-      end_time: data.endTime,
+      start_time: moment(data.startTime).format('YYYY-MM-DD HH:mm:ss'),
+      end_time: moment(data.endTime).format('YYYY-MM-DD HH:mm:ss'),
     }).then((res) => {
       console.log(res.data);
     });
@@ -155,13 +156,13 @@ function competitionCreate() {
 
   window.$(() => {
     window.flatpickr('#startTime', {
-      dateFormat: 'Y-m-d H:i:ss',
+      dateFormat: 'Y-m-d H:i',
       enableTime: true,
       time_24hr: true,
       locale: 'zh',
     });
     window.flatpickr('#endTime', {
-      dateFormat: 'Y-m-d H:i:ss',
+      dateFormat: 'Y-m-d H:i',
       enableTime: true,
       time_24hr: true,
       locale: 'zh',
