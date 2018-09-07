@@ -121,10 +121,8 @@ function base() {
 
   const element = `
     <div class="card" style="width: 600px; margin: auto">
-      <div class="card-title">
-        <h3>Center</h3>
-      </div>
       <div class="card-body">
+        <h4 class="card-title" style="margin-bottom: 24px">个人中心</h4>
         <button
           id="showModal"
           type="button"
