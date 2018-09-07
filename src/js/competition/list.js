@@ -105,6 +105,9 @@ function competitionList() {
               getData();
             });
             break;
+          case 'apply':
+            window.location.hash = `/competition/apply?id=${window.$(event.target).attr('aria-labelledby')}`;
+            break;
           default:
             break;
         }

@@ -34,5 +34,12 @@ router.route('/competition/edit', () => {
   Components.default(router);
   Components.competitionEdit(router);
 });
+router.route('/competition/apply', () => {
+  if (router.search && router.search !== '?') {
+    console.log(router.search);
+    Components.default(router);
+    Components.competitionApply(router);
+  }
+});
 
 export default router;
