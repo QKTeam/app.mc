@@ -2,7 +2,7 @@ import service from '../../service';
 
 function verify(router) {
   function activation() {
-    service.put(`/auth/active?${router.query}`).then((res) => {
+    service.put(`/auth/active${router.search}`).then((res) => {
       window.localStorage['Api-Token'] = res.data.token;
       window.localStorage.user_id = res.data.user_id;
       window.localStorage.access = res.data.access;

@@ -1,7 +1,8 @@
 class Router {
   constructor() {
     this.routes = {};
-    this.query = '';
+    this.query = {};
+    this.search = '';
     this.path = '';
   }
 
@@ -18,9 +19,10 @@ class Router {
     }
 
     const [path] = url;
-    const { 1: query } = url;
+    const { 1: search } = url;
     this.path = path;
-    this.query = query;
+    this.search = `?${search}`;
+    this.query = new URLSearchParams(this.search);
 
     if (this.routes[this.path] !== undefined) {
       this.routes[this.path]();
