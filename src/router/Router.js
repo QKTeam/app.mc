@@ -1,14 +1,16 @@
-function Router() {
-  this.routes = {};
-  this.query = '';
-  this.path = '';
-}
+class Router {
+  constructor() {
+    this.routes = {};
+    this.query = '';
+    this.path = '';
+  }
 
-Router.prototype = {
-  route: function route(path, callback) {
-    this.routes[path] = callback || function () {};
-  },
-  refresh: function refresh() {
+  route(path, callback) {
+    const emptyfunction = () => {};
+    this.routes[path] = callback || emptyfunction;
+  }
+
+  refresh() {
     let url = window.location.hash.slice(1) || '/';
     url = url.split('?');
     if (url.length < 2) {
@@ -23,12 +25,14 @@ Router.prototype = {
     if (this.routes[this.path] !== undefined) {
       this.routes[this.path]();
     }
-  },
-  init: function init() {
+  }
+
+  init() {
     window.addEventListener('load', this.refresh.bind(this), false);
     window.addEventListener('hashchange', this.refresh.bind(this), false);
-  },
-  push: function push(url) {
+  }
+
+  push(url) {
     this.path = window.location.hash;
     if (window.location.hash.slice(-1) === '/') {
       this.path = this.path.slice(0, -1);
@@ -38,7 +42,7 @@ Router.prototype = {
     }
     this.path = `${this.path}/${url}`;
     window.location.hash = this.path;
-  },
-};
+  }
+}
 
 export default Router;
