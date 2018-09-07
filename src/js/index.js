@@ -9,7 +9,7 @@ function layout() {
               <a class="nav-link" href="#/center">Center</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#/competition">Competition</a>
+              <a class="nav-link" href="#/competition/list">Competition</a>
             </li>
           </ul>
           <ul class="navbar-nav" style="position: absolute; right: 0;">
@@ -32,4 +32,5 @@ export { default as verify } from './auth/verify';
 export { default as base } from './center/base';
 export { default as competitionList } from './competition/list';
 export { default as competitionCreate } from './competition/create';
+export { default as competitionEdit } from './competition/edit';
 export default layout;

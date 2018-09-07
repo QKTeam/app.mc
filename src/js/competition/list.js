@@ -98,7 +98,7 @@ function competitionList() {
             window.location.hash = '/competition/create';
             break;
           case 'modify':
-            window.location.hash = `/competition/edit/${window.$(event.target).attr('aria-labelledby')}`;
+            window.location.hash = `/competition/edit?id=${window.$(event.target).attr('aria-labelledby')}`;
             break;
           case 'delete':
             service.delete(`/race/${window.$(event.target).attr('aria-labelledby')}`).then(() => {

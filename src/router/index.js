@@ -30,5 +30,9 @@ router.route('/competition/create', () => {
   Components.default(router);
   Components.competitionCreate(router);
 });
+router.route('/competition/edit', () => {
+  Components.default(router);
+  Components.competitionEdit(router);
+});
 
 export default router;
