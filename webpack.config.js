@@ -7,7 +7,9 @@ module.exports = {
     filename: 'main.bundle.js',
   },
   devServer: {
+    inline: true,
     watchContentBase: true,
+    port: 9000,
     proxy: {
       '/api': {
         target: 'http://139.199.157.185:3000',

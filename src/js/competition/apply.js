@@ -1,6 +1,6 @@
 import service from '../../service';
 
-function competitionApply(router) {
+const competitionApply = (router) => {
   const data = {
     get truename() {
       return document.querySelector('#truename').value;
@@ -48,7 +48,7 @@ function competitionApply(router) {
     set college(val) {
       const list = document.querySelector('#college').children;
       for (let i = 0; i < list.length; i += 1) {
-        if (list[i] === val) {
+        if (list[i].value === val) {
           list[i].selected = true;
           break;
         }
@@ -78,7 +78,7 @@ function competitionApply(router) {
     },
   };
 
-  function submit() {
+  const submit = () => {
     service.post(`/race/apply/${router.query.get('id')}`, {
       truename: data.truename,
       gender: +data.gender,
@@ -93,11 +93,10 @@ function competitionApply(router) {
     }).then((res) => {
       console.log(res.data);
     });
-  }
+  };
 
-  function getData() {
+  const getData = () => {
     service.get('/auth').then((res) => {
-      console.log(res.data);
       data.email = res.data.email || '';
       data.truename = res.data.truename || '';
       data.gender = res.data.gender || 0;
@@ -110,14 +109,24 @@ function competitionApply(router) {
       data.schoolName = res.data.school_name || '';
       data.competitionType = res.data.competition_type || 1;
     });
-  }
+  };
 
-  (function create() {
-    getData();
-  }());
+  const getOption = () => {
+    service.get('/options/college').then((res) => {
+      res.data.forEach((obj) => {
+        const option = `<option>${obj.name}</option>`;
+        window.$('#college').append(option);
+      });
+      getData();
+    });
+  };
+
+  const created = () => {
+    getOption();
+  };
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto">
+    <div class="card" style="width: 600px; margin: auto; margin-bottom: 60px">
       <div class="card-body">
         <h4 class="card-title" style="margin-bottom: 24px">报名信息</h4>
         <form onsubmit="return false">
@@ -126,25 +135,27 @@ function competitionApply(router) {
             <input id="truename" class="form-control" placeholder="姓名">
             <p id="error-truename"></p>
           </div>
-          <label for="gender">性别</label>
-          <div id="gender">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="gender"
-                id="male"
-                value="0">
-              <label class="form-check-label" for="male">男</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="gender"
-                id="female"
-                value="1">
-              <label class="form-check-label" for="female">女</label>
+          <div class="form-group">
+            <label for="gender">性别</label>
+            <div id="gender">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="0">
+                <label class="form-check-label" for="male">男</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="1">
+                <label class="form-check-label" for="female">女</label>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -171,8 +182,6 @@ function competitionApply(router) {
             <label for="college">学院</label>
             <select class="custom-select" id="college">
               <option selected>请选择...</option>
-              <option>其他</option>
-              <option>empty</option>
             </select>
           </div>
           <div class="form-group">
@@ -185,25 +194,27 @@ function competitionApply(router) {
             <input id="schoolName" class="form-control" placeholder="学校名称">
             <p id="error-schoolName"></p>
           </div>
-          <label for="competitionType">比赛类型</label>
-          <div id="competitionType">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="competitionType"
-                id="math"
-                value="1">
-              <label class="form-check-label" for="math">数学专业</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="competitionType"
-                id="non-math"
-                value="0">
-              <label class="form-check-label" for="non-math">非数学专业</label>
+          <div class="form-group">
+            <label for="competitionType">比赛类型</label>
+            <div id="competitionType">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="competitionType"
+                  id="math"
+                  value="1">
+                <label class="form-check-label" for="math">数学专业</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="competitionType"
+                  id="non-math"
+                  value="0">
+                <label class="form-check-label" for="non-math">非数学专业</label>
+              </div>
             </div>
           </div>
           <div style="text-align: center">
@@ -218,6 +229,10 @@ function competitionApply(router) {
   document.querySelector('#apply-submit').addEventListener('click', () => {
     submit();
   });
-}
+
+  window.$(() => {
+    created();
+  });
+};
 
 export default competitionApply;
