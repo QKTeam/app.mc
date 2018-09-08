@@ -1,9 +1,8 @@
 import service from '../../service';
 
-function membersMembers(router) {
-  function getData() {
+const membersMembers = (router) => {
+  const getData = () => {
     service.get(`race/${router.query.get('id')}/members`).then((res) => {
-      console.log(res.data);
       res.data.forEach((obj) => {
         const list = `
           <tr>
@@ -17,10 +16,10 @@ function membersMembers(router) {
         window.$('#members').append(list);
       });
     });
-  }
+  };
 
   const element = `
-    <button id="download" class="btn btn-primary">下载成员信息</button>
+    <a id="download" href="/api/race/${router.query.get('id')}/download" class="btn btn-primary">下载成员信息</a>
     <table class="table" style="margin-top: 30px">
       <thead class="thead-light">
         <tr>
@@ -35,9 +34,10 @@ function membersMembers(router) {
     </table>`;
 
   window.$('#main').append(element);
+
   window.$(() => {
     getData();
   });
-}
+};
 
 export default membersMembers;
