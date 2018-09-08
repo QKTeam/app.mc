@@ -1,9 +1,6 @@
 import service from '../../service';
 
 function competitionList() {
-  // const submit = (id) => {
-  //   console.log(id);
-  // };
   function getData() {
     window.$('#competition').empty();
     service.get('/race').then((res) => {

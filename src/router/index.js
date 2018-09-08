@@ -36,9 +36,14 @@ router.route('/competition/edit', () => {
 });
 router.route('/competition/apply', () => {
   if (router.search && router.search !== '?') {
-    console.log(router.search);
     Components.default(router);
     Components.competitionApply(router);
+  }
+});
+router.route('/competition/members', () => {
+  if (router.search && router.search !== '?') {
+    Components.default(router);
+    Components.competitionMembers(router);
   }
 });
 

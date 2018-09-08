@@ -64,12 +64,6 @@ const base = () => {
     set major(val) {
       document.querySelector('#major').value = val;
     },
-    get captcha() {
-      return document.querySelector('#captcha').value;
-    },
-    set captcha(val) {
-      document.querySelector('#captcha').value = val;
-    },
   };
 
   const submit = () => {

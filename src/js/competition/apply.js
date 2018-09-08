@@ -60,12 +60,6 @@ const competitionApply = (router) => {
     set major(val) {
       document.querySelector('#major').value = val;
     },
-    get schoolName() {
-      return document.querySelector('#schoolName').value;
-    },
-    set schoolName(val) {
-      document.querySelector('#schoolName').value = val;
-    },
     get competitionType() {
       return document.querySelector('input[name="competitionType"]:checked').value;
     },
@@ -88,7 +82,6 @@ const competitionApply = (router) => {
       college: data.college,
       major: data.major,
       school_number: data.schoolNumber,
-      school_name: data.schoolName,
       competition_type: +data.competitionType,
     }).then((res) => {
       console.log(res.data);
@@ -106,7 +99,6 @@ const competitionApply = (router) => {
       data.schoolNumber = res.data.school_number || '';
       data.college = res.data.college || '请选择...';
       data.major = res.data.major || '';
-      data.schoolName = res.data.school_name || '';
       data.competitionType = res.data.competition_type || 1;
     });
   };
@@ -188,11 +180,6 @@ const competitionApply = (router) => {
             <label for="major">专业</label>
             <input id="major" class="form-control" placeholder="专业">
             <p id="error-major"></p>
-          </div>
-          <div class="form-group">
-            <label for="schoolName">学校名称</label>
-            <input id="schoolName" class="form-control" placeholder="学校名称">
-            <p id="error-schoolName"></p>
           </div>
           <div class="form-group">
             <label for="competitionType">比赛类型</label>
