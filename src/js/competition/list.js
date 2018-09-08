@@ -1,7 +1,7 @@
 import service from '../../service';
 
-function competitionList() {
-  function getData() {
+const competitionList = () => {
+  const getData = () => {
     window.$('#competition').empty();
     service.get('/race').then((res) => {
       if (res.data.length) {
@@ -19,10 +19,15 @@ function competitionList() {
           } else {
             submitGroup = `
               <button
+                name="detail"
+                aria-labelledby="${obj.id}"
+                class="btn btn-primary"
+                >查看参赛者</button>
+              <button
                 name="modify"
                 aria-labelledby="${obj.id}"
                 style="width: 100px"
-                class="btn btn-primary"
+                class="btn btn-success"
                 >修改</button>
               <button
                 name="delete"
@@ -91,6 +96,9 @@ function competitionList() {
 
       window.$('button').click((event) => {
         switch (event.target.name) {
+          case 'detail':
+            window.location.hash = `/competition/members?id=${window.$(event.target).attr('aria-labelledby')}`;
+            break;
           case 'create':
             window.location.hash = '/competition/create';
             break;
@@ -110,7 +118,7 @@ function competitionList() {
         }
       });
     });
-  }
+  };
 
   let createPart = '';
 
@@ -136,6 +144,6 @@ function competitionList() {
   window.$(() => {
     getData();
   });
-}
+};
 
 export default competitionList;
