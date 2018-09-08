@@ -1,7 +1,7 @@
 import service from '../../service';
 import pwdModal from './pwdModal';
 
-function base() {
+const base = () => {
   const data = {
     set email(val) {
       document.querySelector('#email').innerText = val;
@@ -52,7 +52,7 @@ function base() {
     set college(val) {
       const list = document.querySelector('#college').children;
       for (let i = 0; i < list.length; i += 1) {
-        if (list[i] === val) {
+        if (list[i].value === val) {
           list[i].selected = true;
           break;
         }
@@ -72,7 +72,7 @@ function base() {
     },
   };
 
-  function submit() {
+  const submit = () => {
     service.put('/user/profile', {
       truename: data.truename,
       gender: +data.gender,
@@ -85,23 +85,10 @@ function base() {
     }).then((res) => {
       console.log(res.data);
     });
-  }
+  };
 
-  let captchaSVG = '';
-
-  function getCaptcha() {
-    service.get('/auth/captcha').then((res) => {
-      window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
-      captchaSVG = res.data;
-      if (document.querySelector('#captchaSVG')) {
-        document.querySelector('#captchaSVG').innerHTML = captchaSVG;
-      }
-    });
-  }
-
-  function getData() {
+  const getData = () => {
     service.get('/auth').then((res) => {
-      console.log(res.data);
       data.email = res.data.email || '';
       data.truename = res.data.truename || '';
       data.gender = res.data.gender || 0;
@@ -112,15 +99,24 @@ function base() {
       data.college = res.data.college || '请选择...';
       data.major = res.data.major || '';
     });
-  }
+  };
 
-  (function create() {
-    getData();
-    getCaptcha();
-  }());
+  const getOption = () => {
+    service.get('/options/college').then((res) => {
+      res.data.forEach((obj) => {
+        const option = `<option>${obj.name}</option>`;
+        window.$('#college').append(option);
+      });
+      getData();
+    });
+  };
+
+  const created = () => {
+    getOption();
+  };
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto">
+    <div class="card" style="width: 600px; margin: auto; margin-bottom: 80px">
       <div class="card-body">
         <h4 class="card-title" style="margin-bottom: 24px">个人中心</h4>
         <button
@@ -140,25 +136,27 @@ function base() {
             <input id="truename" class="form-control" placeholder="姓名">
             <p id="error-truename"></p>
           </div>
-          <label for="gender">性别</label>
-          <div id="gender">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="gender"
-                id="male"
-                value="0">
-              <label class="form-check-label" for="male">男</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="gender"
-                id="female"
-                value="1">
-              <label class="form-check-label" for="female">女</label>
+          <div class="form-group">
+            <label for="gender">性别</label>
+            <div id="gender">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="0">
+                <label class="form-check-label" for="male">男</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="1">
+                <label class="form-check-label" for="female">女</label>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -185,8 +183,6 @@ function base() {
             <label for="college">学院</label>
             <select class="custom-select" id="college">
               <option selected>请选择...</option>
-              <option>其他</option>
-              <option>empty</option>
             </select>
           </div>
           <div class="form-group">
@@ -194,12 +190,6 @@ function base() {
             <input id="major" class="form-control" placeholder="专业">
             <p id="error-major"></p>
           </div>
-          <div id="captchaForm" class="form-group">
-            <label for="captcha">验证码</label>
-            <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
-            <p id="error-captcha"></p>
-          </div>
-          <div id="captchaSVG">${captchaSVG}</div>
           <div style="text-align: center">
             <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
           </div>
@@ -218,6 +208,10 @@ function base() {
   document.querySelector('#showModal').addEventListener('click', () => {
     window.$(() => window.$('#passwordModal').modal('toggle'));
   });
-}
+
+  window.$(() => {
+    created();
+  });
+};
 
 export default base;
