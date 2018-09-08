@@ -4,7 +4,11 @@ import * as Components from '../js';
 const router = new Router();
 
 router.route('/', () => {
-  Components.default();
+  if (window.localStorage.user_id) {
+    window.location.hash = '/center';
+  } else {
+    window.location.hash = '/auth/login';
+  }
 });
 router.route('/auth/register', () => {
   Components.default(router);

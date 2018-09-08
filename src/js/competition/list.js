@@ -112,8 +112,13 @@ function competitionList() {
     });
   }
 
+  let createPart = '';
+
+  if (+window.localStorage.access > -1) {
+    createPart = '<button id="createCompetition" name="create" class="btn btn-primary">创建比赛</button>';
+  }
   const element = `
-    <button id="createCompetition" name="create" class="btn btn-primary">创建比赛</button>
+    ${createPart}
     <div style="margin-top: 20px">点击比赛可获取更多信息</div>
     <table class="table" style="margin-top: 30px">
       <thead class="thead-light">

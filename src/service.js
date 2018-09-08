@@ -12,7 +12,15 @@ const defaultRequestError = error => Promise.reject(error);
 const defaultResponseSuccess = response => response;
 
 const defaultResponseError = (error) => {
-  console.log(error);
+  console.log(error.response);
+  switch (error.response.status) {
+    case 401:
+      alert(error.response.data.message);
+      window.location.hash = '/auth/login';
+      break;
+    default:
+      break;
+  }
   return Promise.reject(error);
 };
 
