@@ -32,8 +32,9 @@ function pwdModal() {
     service.put('/user/changePwd', {
       password_old: sha256(data.oldPassword),
       password_new: sha256(data.password),
-    }).then((res) => {
-      console.log(res.data);
+    }).then(() => {
+      alert('修改成功');
+      window.location.reload();
     });
   }
 

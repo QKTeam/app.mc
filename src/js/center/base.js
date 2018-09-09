@@ -6,198 +6,133 @@ const base = () => {
     set email(val) {
       document.querySelector('#email').innerText = val;
     },
-    get truename() {
-      return document.querySelector('#truename').value;
-    },
     set truename(val) {
-      document.querySelector('#truename').value = val;
-    },
-    get gender() {
-      return document.querySelector('input[name="gender"]:checked').value;
+      document.querySelector('#truename').innerText = val;
     },
     set gender(val) {
-      if (val === 0) {
-        document.querySelector('#male').checked = true;
-      } else if (val === 1) {
-        document.querySelector('#female').checked = true;
-      }
-    },
-    get qqAcount() {
-      return document.querySelector('#qqAcount').value;
+      document.querySelector('#gender').innerText = val;
     },
     set qqAcount(val) {
-      document.querySelector('#qqAcount').value = val;
-    },
-    get phone() {
-      return document.querySelector('#phone').value;
+      document.querySelector('#qqAcount').innerText = val;
     },
     set phone(val) {
-      document.querySelector('#phone').value = val;
-    },
-    get idNumber() {
-      return document.querySelector('#idNumber').value;
+      document.querySelector('#phone').innerText = val;
     },
     set idNumber(val) {
-      document.querySelector('#idNumber').value = val;
-    },
-    get schoolNumber() {
-      return document.querySelector('#schoolNumber').value;
+      document.querySelector('#idNumber').innerText = val;
     },
     set schoolNumber(val) {
-      document.querySelector('#schoolNumber').value = val;
-    },
-    get college() {
-      if (document.querySelector('#extend').style.display !== 'none') {
-        return document.querySelector('#other').value;
-      }
-      return document.querySelector('#college').value;
+      document.querySelector('#schoolNumber').innerText = val;
     },
     set college(val) {
-      const list = document.querySelector('#college').children;
-      for (let i = 0; i < list.length; i += 1) {
-        if (list[i].value === val) {
-          list[i].selected = true;
-          return;
-        }
-      }
-      document.querySelector('#college').value = '其他';
-      document.querySelector('#extend').style.display = 'inline-block';
-      document.querySelector('#other').value = val;
-    },
-    get major() {
-      return document.querySelector('#major').value;
+      document.querySelector('#college').innerText = val;
     },
     set major(val) {
-      document.querySelector('#major').value = val;
+      document.querySelector('#major').innerText = val;
     },
-  };
-
-  const submit = () => {
-    service.put('/user/profile', {
-      truename: data.truename,
-      gender: +data.gender,
-      qq_number: data.qqAcount,
-      phone: data.phone,
-      id_code: data.idNumber,
-      college: data.college,
-      major: data.major,
-      school_number: data.schoolNumber,
-    }).then((res) => {
-      console.log(res.data);
-    });
+    set loginTime(val) {
+      document.querySelector('#loginTime').innerText = val;
+    },
   };
 
   const getData = () => {
     service.get('/auth').then((res) => {
-      data.email = res.data.email || '';
-      data.truename = res.data.truename || '';
+      data.email = res.data.email || '无';
+      data.truename = res.data.truename || '无';
       data.gender = res.data.gender || 0;
-      data.qqAcount = res.data.qq_number || '';
-      data.phone = res.data.phone || '';
-      data.idNumber = res.data.id_code || '';
-      data.schoolNumber = res.data.school_number || '';
-      data.college = res.data.college || '请选择...';
-      data.major = res.data.major || '';
+      data.qqAcount = res.data.qq_number || '无';
+      data.phone = res.data.phone || '无';
+      data.loginTime = res.data.login_time || '无';
+      if (window.localStorage.access === -1) {
+        data.idNumber = res.data.id_code || '无';
+        data.schoolNumber = res.data.school_number || '无';
+        data.college = res.data.college || '请选择...';
+        data.major = res.data.major || '无';
+      }
     });
   };
 
-  const getOption = () => {
-    service.get('/options/college').then((res) => {
-      res.data.forEach((obj) => {
-        const option = `<option>${obj.name}</option>`;
-        window.$('#college').append(option);
-      });
-      getData();
-    });
-  };
+  const studentPart = `
+    <div style="margin-bottom: 1rem">
+      <span style="display: inline-block; width: 100px">身份证号</span>
+      <span id="idNumber"></span>
+    </div>
+    <div style="margin-bottom: 1rem">
+      <span style="display: inline-block; width: 100px">学号</span>
+      <span id="schoolNumber"></span>
+    </div>
+    <div style="margin-bottom: 1rem">
+      <span style="display: inline-block; width: 100px">学院</span>
+      <span id="college"></span>
+    </div>
+    <div style="margin-bottom: 1rem">
+      <span style="display: inline-block; width: 100px">专业</span>
+      <span id="major"></span>
+    </div>`;
 
   const created = () => {
-    getOption();
+    getData();
   };
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto; margin-bottom: 80px">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-bottom: 24px">个人中心</h4>
-        <button
-          id="showModal"
-          type="button"
-          class="btn btn-primary"
-          style="margin-bottom: 1rem"
-          data-toggle="modal"
-          data-target="#passwordModal"
-          >修改密码</button>
-        <form onsubmit="return false">
-          <div class="form-group">
-            <label for="email">电子邮件</label>
-            <span id="email"></span>
-          </div>
-          <div class="form-group">
-            <label for="truename">姓名</label>
-            <input id="truename" class="form-control" placeholder="姓名">
-            <p id="error-truename"></p>
-          </div>
-          <div class="form-group">
-            <label for="gender">性别</label>
-            <div id="gender">
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="male"
-                  value="0">
-                <label class="form-check-label" for="male">男</label>
+    <div style="width: 65%; margin: auto">
+      <div class="row" style="margin-bottom: 14px">
+        <div class="col">
+          <div class="card" style="height: 100%">
+            <div class="card-body">
+              <div style="font-size: 1.5rem">
+                欢迎回来～
+                <span id="truename"></span>
+                ${+window.localStorage.access === -1 ? '' : '老师'}
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="female"
-                  value="1">
-                <label class="form-check-label" for="female">女</label>
-              </div>
+              <hr>
+              <label for="loginTime">上次登录时间</label>
+              <div id="loginTime" class="form-group"></div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="qqAcount">qq帐户</label>
-            <input id="qqAcount" class="form-control" placeholder="qq帐户">
-            <p id="error-qqAcount"></p>
+        </div>
+        <div class="col">
+          <div class="card" style="height: 100%">
+            <div class="card-body">
+              <h4 class="card-title" style="margin-bottom: 24px">账户信息</h4>
+              <div class="form-group">
+                <label for="email">电子邮件</label>
+                <span id="email"></span>
+              </div>
+              <button
+                id="showModal"
+                type="button"
+                class="btn btn-primary"
+                style="margin-bottom: 1rem"
+                data-toggle="modal"
+                data-target="#passwordModal"
+                >修改密码</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="phone">电话</label>
-            <input id="phone" class="form-control" placeholder="电话">
-            <p id="error-phone"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body" style="position: relative">
+              <button id="edit" class="btn btn-primary" style="position: absolute; right: 20px; top: 20px">修改信息</button>
+              <h4 class="card-title" style="margin-bottom: 24px">基本信息</h4>
+              <div style="margin-bottom: 1rem">
+                <span style="display: inline-block; width: 100px">性别</span>
+                <span id="gender"></span>
+              </div>
+              <div style="margin-bottom: 1rem">
+                <span style="display: inline-block; width: 100px">qq帐户</span>
+                <span id="qqAcount"></span>
+              </div>
+              <div style="margin-bottom: 1rem">
+                <span style="display: inline-block; width: 100px">电话</span>
+                <span id="phone"></span>
+              </div>
+              ${+window.localStorage.access === -1 ? studentPart : ''}
+            </div>
           </div>
-          <div class="form-group">
-            <label for="idNumber">身份证号</label>
-            <input id="idNumber" class="form-control" placeholder="身份证号">
-            <p id="error-idNumber"></p>
-          </div>
-          <div class="form-group">
-            <label for="schoolNumber">学号</label>
-            <input id="schoolNumber" class="form-control" placeholder="学号">
-            <p id="error-schoolNumber"></p>
-          </div>
-          <div class="form-group">
-            <label for="college">学院</label>
-            <select class="custom-select" id="college">
-              <option selected>请选择...</option>
-            </select>
-          </div>
-          <div id="extend" style="display: none" class="form-group">
-            <input id="other" class="form-control" placeholder="学院名称">
-          </div>
-          <div class="form-group">
-            <label for="major">专业</label>
-            <input id="major" class="form-control" placeholder="专业">
-            <p id="error-major"></p>
-          </div>
-          <div style="text-align: center">
-            <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>`;
 
@@ -205,20 +140,12 @@ const base = () => {
 
   document.querySelector('#main').innerHTML = element;
 
-  document.querySelector('#base-submit').addEventListener('click', () => {
-    submit();
-  });
-
   document.querySelector('#showModal').addEventListener('click', () => {
     window.$(() => window.$('#passwordModal').modal('toggle'));
   });
 
-  document.querySelector('#college').addEventListener('change', () => {
-    if (document.querySelector('#college').value === '其他') {
-      document.querySelector('#extend').style.display = 'inline-block';
-    } else {
-      document.querySelector('#extend').style.display = 'none';
-    }
+  document.querySelector('#edit').addEventListener('click', () => {
+    window.location.hash = '/center/profile';
   });
 
   window.$(() => {
