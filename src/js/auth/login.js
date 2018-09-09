@@ -1,7 +1,7 @@
 import sha256 from 'sha256';
 import service from '../../service';
 
-function login() {
+const login = () => {
   const data = {
     get email() {
       return document.querySelector('#email').value;
@@ -25,7 +25,7 @@ function login() {
 
   let captchaSVG = '';
 
-  function getCaptcha() {
+  const getCaptcha = () => {
     service.get('/auth/captcha').then((res) => {
       window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
       captchaSVG = res.data;
@@ -33,9 +33,9 @@ function login() {
         document.querySelector('#captchaSVG').innerHTML = captchaSVG;
       }
     });
-  }
+  };
 
-  function submit() {
+  const submit = () => {
     service.post('/auth/login', {
       email: data.email,
       password: sha256(data.password),
@@ -46,29 +46,16 @@ function login() {
       window.localStorage.access = res.data.access;
       window.location.hash = '/center';
     });
-  }
-
-  (function create() {
-    getCaptcha();
-  }());
-
-  const registerRemind = '<a href="#/auth/register">No account? Click here register!</a>';
+  };
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
-      <div class="card" style="width: 350px; margin: auto">
-        <ul class="nav nav-tabs">
-          <li class="nav-item" style="width: 50%; text-align: center">
-            <a id="tabs-student" class="nav-link active">Student</a>
-          </li>
-          <li class="nav-item" style="width: 50%; text-align: center">
-            <a id="tabs-teacher" class="nav-link">Teacher</a>
-          </li>
-        </ul>
+      <div class="card" style="width: 400px; margin: auto">
         <div class="card-body">
+          <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
           <form onsubmit="return false">
             <div class="form-group">
-              <label for="email">Email address</label>
+              <label for="email">邮箱</label>
               <input
                 id="email"
                 type="email"
@@ -78,36 +65,29 @@ function login() {
               <p id="error-email"></p>
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
+              <label for="password">密码</label>
               <input type="password" class="form-control" id="password" placeholder="Password">
               <p id="error-password"></p>
             </div>
             <div id="captchaForm" class="form-group">
               <label for="captcha">验证码</label>
-              <input autocomplete="off" class="form-control" id="captcha" placeholder="captcha">
+              <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
               <p id="error-captcha"></p>
             </div>
-            <div id="captchaSVG">${captchaSVG}</div>
-            <div id="register-remind">${registerRemind}</div>
-            <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+            <div class="form-group">
+              <span id="captchaSVG" style="display: inline-block; cursor: pointer">${captchaSVG}</span>
+              <span style="color: grey; font-size: 14px">不区分大小写</span>
+            </div>
+            <div id="register-remind" class="form-group">
+              <a href="#/auth/register">学生账号注册点击这里</a>
+            </div>
+            <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">登录</button>
           </form>
         </div>
       </div>
     </div>`;
 
   document.querySelector('#main').innerHTML = element;
-
-  document.querySelector('#tabs-teacher').addEventListener('click', () => {
-    document.querySelector('#tabs-teacher').classList.add('active');
-    document.querySelector('#tabs-student').classList.remove('active');
-    document.querySelector('#register-remind').innerHTML = '';
-  });
-
-  document.querySelector('#tabs-student').addEventListener('click', () => {
-    document.querySelector('#tabs-student').classList.add('active');
-    document.querySelector('#tabs-teacher').classList.remove('active');
-    document.querySelector('#register-remind').innerHTML = registerRemind;
-  });
 
   document.querySelector('#login-submit').addEventListener('click', () => {
     submit();
@@ -116,6 +96,10 @@ function login() {
   document.querySelector('#captchaSVG').addEventListener('click', () => {
     getCaptcha();
   });
-}
+
+  window.$(() => {
+    getCaptcha();
+  });
+};
 
 export default login;
