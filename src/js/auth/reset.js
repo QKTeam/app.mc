@@ -3,12 +3,6 @@ import service from '../../service';
 
 const reset = (router) => {
   const data = {
-    get email() {
-      return document.querySelector('#email').value;
-    },
-    set email(val) {
-      document.querySelector('#email').value = val;
-    },
     get password() {
       return document.querySelector('#password').value;
     },
@@ -35,7 +29,6 @@ const reset = (router) => {
       return;
     }
     service.put('/user/resetPwd', {
-      email: data.email,
       password: sha256(data.password),
       reset: router.query.get('reset'),
       id: +router.query.get('id'),
@@ -62,15 +55,6 @@ const reset = (router) => {
         <div class="card-body">
           <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
           <form onsubmit="return false">
-            <div class="form-group">
-              <label for="email">邮箱</label>
-              <input
-                id="email"
-                class="form-control"
-                aria-describedby="emailHelp"
-                placeholder="Enter email">
-              <p id="error-email" style="color: red" name="error" aria-labelledby="email"></p>
-            </div>
             <div class="form-group">
               <label for="password">密码</label>
               <input type="password" class="form-control" id="password" placeholder="Password">
