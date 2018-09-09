@@ -43,24 +43,24 @@ function pwdModal() {
         <div class="modal-content">
           <form onsubmit="return false">
             <div class="modal-header">
-              <h5 class="modal-title" id="passwordModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="passwordModalLabel">修改密码</h5>
               <button id="closeIcon" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="oldPassword">oldPassword</label>
+                <label for="oldPassword">旧密码</label>
                 <input type="password" class="form-control" id="oldPassword" placeholder="oldPassword">
                 <p id="error-oldPassword"></p>
               </div>
               <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">新密码</label>
                 <input type="password" class="form-control" id="password" placeholder="Password">
                 <p id="error-password"></p>
               </div>
               <div class="form-group">
-                <label for="repeatPassword">Repeat password</label>
+                <label for="repeatPassword">确认新密码</label>
                 <input
                   type="password"
                   class="form-control"

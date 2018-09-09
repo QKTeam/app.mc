@@ -117,6 +117,7 @@ const base = () => {
           id="showModal"
           type="button"
           class="btn btn-primary"
+          style="margin-bottom: 1rem"
           data-toggle="modal"
           data-target="#passwordModal"
           >修改密码</button>
@@ -185,7 +186,7 @@ const base = () => {
             <p id="error-major"></p>
           </div>
           <div style="text-align: center">
-            <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+            <button id="base-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
           </div>
         </form>
       </div>
