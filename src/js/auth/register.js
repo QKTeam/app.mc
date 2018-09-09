@@ -49,8 +49,8 @@ const register = () => {
       email: data.email,
       password: sha256(data.password),
       captcha: data.captcha,
-    }).then((res) => {
-      console.log(res);
+    }).then(() => {
+      window.location.hash = '/auth/activate';
     });
   };
 

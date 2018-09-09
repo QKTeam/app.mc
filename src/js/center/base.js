@@ -10,7 +10,13 @@ const base = () => {
       document.querySelector('#truename').innerText = val;
     },
     set gender(val) {
-      document.querySelector('#gender').innerText = val;
+      if (val === 0) {
+        document.querySelector('#gender').innerText = '男';
+      } else if (val === 1) {
+        document.querySelector('#gender').innerText = '女';
+      } else {
+        document.querySelector('#gender').innerText = '未知';
+      }
     },
     set qqAcount(val) {
       document.querySelector('#qqAcount').innerText = val;
@@ -38,15 +44,15 @@ const base = () => {
   const getData = () => {
     service.get('/auth').then((res) => {
       data.email = res.data.email || '无';
-      data.truename = res.data.truename || '无';
-      data.gender = res.data.gender || 0;
+      data.truename = res.data.truename || '';
+      data.gender = res.data.gender;
       data.qqAcount = res.data.qq_number || '无';
       data.phone = res.data.phone || '无';
       data.loginTime = res.data.login_time || '无';
       if (+window.localStorage.access === -1) {
         data.idNumber = res.data.id_code || '无';
         data.schoolNumber = res.data.school_number || '无';
-        data.college = res.data.college || '请选择...';
+        data.college = res.data.college || '无';
         data.major = res.data.major || '无';
       }
     });

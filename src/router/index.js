@@ -18,6 +18,10 @@ router.route('/auth/login', () => {
   Components.default(router);
   Components.login(router);
 });
+router.route('/auth/activate', () => {
+  Components.default(router);
+  Components.activate(router);
+});
 router.route('/auth/verify', () => {
   Components.default(router);
   Components.verify(router);
