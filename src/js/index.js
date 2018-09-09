@@ -1,29 +1,36 @@
-const layout = () => {
-  let authPart;
+const layout = (router) => {
+  let mainPart = '';
+  let authPart = '';
 
   if (window.localStorage.user_id && window.localStorage['Api-Token']) {
+    mainPart = `
+      <li class="nav-item">
+        <a id="center-link" class="nav-link" href="#/center">个人中心</a>
+      </li>
+      <li class="nav-item">
+        <a id="competition-link" class="nav-link" href="#/competition/list">比赛</a>
+      </li>`;
     authPart = '<div id="logout" class="nav-link" style="cursor: pointer">退出登录</div>';
   } else {
-    authPart = '<a class="nav-link" href="#/auth/login">登录</a>';
+    authPart = `
+      <li class="nav-item">
+        <a class="nav-link" href="#/auth/login">登录</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/auth/register">注册</a>
+      </li>`;
   }
 
   const element = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">Math Competition</a>
+        <a class="navbar-brand" href="#">数学竞赛</a>
         <div class="collapse navbar-collapse" id="navbarNav" style="position: relative">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#/center">Center</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#/competition/list">Competition</a>
-            </li>
+            ${mainPart}
           </ul>
-          <ul class="navbar-nav" style="position: absolute; right: 0;">
-            <li class="nav-item">
-              ${authPart}
-            </li>
+          <ul class="navbar-nav" style="position: absolute; right: 0">
+            ${authPart}
           </ul>
         </div>
       </div>
@@ -38,6 +45,19 @@ const layout = () => {
     delete window.localStorage.user_id;
     delete window.localStorage.access;
     window.location.hash = '/auth/login';
+  });
+
+  window.$(() => {
+    switch (router.path.split('/')[1]) {
+      case 'center':
+        window.$('#center-link').addClass('active');
+        break;
+      case 'competition':
+        window.$('#competition-link').addClass('active');
+        break;
+      default:
+        break;
+    }
   });
 };
 
