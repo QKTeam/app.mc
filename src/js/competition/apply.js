@@ -112,7 +112,22 @@ const competitionApply = (router) => {
     });
   };
 
-  const getData = () => {
+  const modifyApplication = () => {
+    service.get(`/user/applyInfo/${router.query.get('id')}`).then((res) => {
+      data.email = res.data.email || '';
+      data.truename = res.data.truename || '';
+      data.gender = res.data.gender || 0;
+      data.qqAcount = res.data.qq_number || '';
+      data.phone = res.data.phone || '';
+      data.idNumber = res.data.id_code || '';
+      data.schoolNumber = res.data.school_number || '';
+      data.college = res.data.college || '请选择...';
+      data.major = res.data.major || '';
+      data.competitionType = res.data.competition_type || 1;
+    });
+  };
+
+  const newApplication = () => {
     service.get('/auth').then((res) => {
       data.email = res.data.email || '';
       data.truename = res.data.truename || '';
@@ -124,6 +139,21 @@ const competitionApply = (router) => {
       data.college = res.data.college || '请选择...';
       data.major = res.data.major || '';
       data.competitionType = res.data.competition_type || 1;
+    });
+  };
+
+  const getData = () => {
+    service.get('user/races').then((res) => {
+      let isModify = false;
+      res.data.forEach((obj) => {
+        if (obj.id === +router.query.get('id')) {
+          modifyApplication();
+          isModify = true;
+        }
+      });
+      if (!isModify) {
+        newApplication();
+      }
     });
   };
 
