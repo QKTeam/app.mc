@@ -74,9 +74,9 @@ const login = () => {
               <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
               <p id="error-captcha"></p>
             </div>
-            <div class="form-group">
-              <span id="captchaSVG" style="display: inline-block; cursor: pointer">${captchaSVG}</span>
-              <span style="color: grey; font-size: 14px">不区分大小写</span>
+            <div style="color: grey; font-size: 14px" class="form-group">不区分大小写，点击验证码重新获取</div>
+            <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
+              ${captchaSVG}
             </div>
             <div id="register-remind" class="form-group">
               <a href="#/auth/register">学生账号注册点击这里</a>
