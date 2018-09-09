@@ -25,11 +25,14 @@ const layout = (router) => {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">数学竞赛</a>
-        <div class="collapse navbar-collapse" id="navbarNav" style="position: relative">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: space-between">
           <ul class="navbar-nav">
             ${mainPart}
           </ul>
-          <ul class="navbar-nav" style="position: absolute; right: 0">
+          <ul class="navbar-nav">
             ${authPart}
           </ul>
         </div>
