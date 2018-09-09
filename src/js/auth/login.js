@@ -50,7 +50,7 @@ const login = () => {
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
-      <div class="card" style="width: 400px; margin: auto">
+      <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
         <div class="card-body">
           <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
           <form onsubmit="return false">

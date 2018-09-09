@@ -90,7 +90,7 @@ function competitionEdit(router) {
   }
 
   const element = `
-    <div class="card" style="width: 800px; margin: auto">
+    <div class="card" style="width: 800px; margin: auto; margin-bottom: 80px">
       <div class="card-body">
         <h4 class="card-title" style="margin-bottom: 24px">修改比赛信息</h4>
         <form onsubmit="return false">

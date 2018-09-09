@@ -60,7 +60,7 @@ function register() {
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
-      <div class="card" style="width: 350px; margin: auto">
+      <div class="card" style="width: 350px; margin: auto; margin-bottom: 80px">
         <div class="card-body">
           <form onsubmit="return false">
             <div class="form-group">

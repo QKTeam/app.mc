@@ -118,7 +118,7 @@ const competitionApply = (router) => {
   };
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto; margin-bottom: 60px">
+    <div class="card" style="width: 600px; margin: auto; margin-bottom: 80px">
       <div class="card-body">
         <h4 class="card-title" style="margin-bottom: 24px">报名信息</h4>
         <form onsubmit="return false">
