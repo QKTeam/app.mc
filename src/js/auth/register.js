@@ -109,6 +109,9 @@ const register = () => {
             <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
               ${captchaSVG}
             </div>
+            <div class="form-group">
+              <a href="#/auth/login">已有账号，点击这里登录</a>
+            </div>
             <button id="register-submit" type="submit" class="btn btn-primary" style="width: 100%">注册</button>
           </form>
         </div>

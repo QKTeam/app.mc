@@ -95,7 +95,7 @@ const login = () => {
               ${captchaSVG}
             </div>
             <div id="register-remind" class="form-group">
-              <a href="#/auth/register">学生账号注册点击这里</a>
+              <a href="#/auth/register">学生账号点击这里注册</a>
             </div>
             <div class="form-group">
               <a href="#/auth/reset_password">忘记密码</a>
