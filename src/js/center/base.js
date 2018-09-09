@@ -43,7 +43,7 @@ const base = () => {
       data.qqAcount = res.data.qq_number || '无';
       data.phone = res.data.phone || '无';
       data.loginTime = res.data.login_time || '无';
-      if (window.localStorage.access === -1) {
+      if (+window.localStorage.access === -1) {
         data.idNumber = res.data.id_code || '无';
         data.schoolNumber = res.data.school_number || '无';
         data.college = res.data.college || '请选择...';
@@ -75,7 +75,7 @@ const base = () => {
   };
 
   const element = `
-    <div style="width: 65%; margin: auto">
+    <div style="width: 65%; margin: auto; margin-bottom: 80px">
       <div class="row" style="margin-bottom: 14px">
         <div class="col">
           <div class="card" style="height: 100%">

@@ -26,6 +26,10 @@ router.route('/center', () => {
   Components.default(router);
   Components.base(router);
 });
+router.route('/center/profile', () => {
+  Components.default(router);
+  Components.centerProfile(router);
+});
 router.route('/competition/list', () => {
   Components.default(router);
   Components.competitionList(router);
