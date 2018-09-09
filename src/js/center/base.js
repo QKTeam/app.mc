@@ -47,6 +47,9 @@ const base = () => {
       document.querySelector('#schoolNumber').value = val;
     },
     get college() {
+      if (document.querySelector('#extend').style.display !== 'none') {
+        return document.querySelector('#other').value;
+      }
       return document.querySelector('#college').value;
     },
     set college(val) {
@@ -54,9 +57,12 @@ const base = () => {
       for (let i = 0; i < list.length; i += 1) {
         if (list[i].value === val) {
           list[i].selected = true;
-          break;
+          return;
         }
       }
+      document.querySelector('#college').value = '其他';
+      document.querySelector('#extend').style.display = 'inline-block';
+      document.querySelector('#other').value = val;
     },
     get major() {
       return document.querySelector('#major').value;
@@ -180,6 +186,9 @@ const base = () => {
               <option selected>请选择...</option>
             </select>
           </div>
+          <div id="extend" style="display: none" class="form-group">
+            <input id="other" class="form-control" placeholder="学院名称">
+          </div>
           <div class="form-group">
             <label for="major">专业</label>
             <input id="major" class="form-control" placeholder="专业">
@@ -202,6 +211,14 @@ const base = () => {
 
   document.querySelector('#showModal').addEventListener('click', () => {
     window.$(() => window.$('#passwordModal').modal('toggle'));
+  });
+
+  document.querySelector('#college').addEventListener('change', () => {
+    if (document.querySelector('#college').value === '其他') {
+      document.querySelector('#extend').style.display = 'inline-block';
+    } else {
+      document.querySelector('#extend').style.display = 'none';
+    }
   });
 
   window.$(() => {
