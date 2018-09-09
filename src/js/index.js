@@ -74,5 +74,6 @@ export { default as competitionList } from './competition/list';
 export { default as competitionCreate } from './competition/create';
 export { default as competitionEdit } from './competition/edit';
 export { default as competitionApply } from './competition/apply';
+export { default as competitionInfor } from './competition/infor';
 export { default as competitionMembers } from './competition/members';
 export default layout;

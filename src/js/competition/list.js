@@ -9,13 +9,22 @@ const competitionList = () => {
         let submitGroup;
 
         if (+window.localStorage.access === -1) {
-          submitGroup = `
-            <button
-              name="apply"
-              aria-labelledby="${obj.id}"
-              style="width: 100px"
-              class="btn btn-primary"
-              >报名</button>`;
+          if (activePart === 'allCompetition') {
+            submitGroup = `
+              <button
+                name="apply"
+                aria-labelledby="${obj.id}"
+                style="width: 100px"
+                class="btn btn-primary"
+                >报名</button>`;
+          } else {
+            submitGroup = `
+              <button
+                name="infor"
+                aria-labelledby="${obj.id}"
+                class="btn btn-primary"
+                >查看报名信息</button>`;
+          }
         } else {
           submitGroup = `
             <button
@@ -112,6 +121,9 @@ const competitionList = () => {
           break;
         case 'apply':
           window.location.hash = `/competition/apply?id=${window.$(event.target).attr('aria-labelledby')}`;
+          break;
+        case 'infor':
+          window.location.hash = `/competition/infor?id=${window.$(event.target).attr('aria-labelledby')}`;
           break;
         default:
           break;

@@ -52,6 +52,12 @@ router.route('/competition/apply', () => {
     Components.competitionApply(router);
   }
 });
+router.route('/competition/infor', () => {
+  if (router.search && router.search !== '?') {
+    Components.default(router);
+    Components.competitionInfor(router);
+  }
+});
 router.route('/competition/members', () => {
   if (router.search && router.search !== '?') {
     Components.default(router);
