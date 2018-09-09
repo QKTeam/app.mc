@@ -18,8 +18,28 @@ const membersMembers = (router) => {
     });
   };
 
+  const downloadInfor = () => {
+    service.get(`/race/${router.query.get('id')}/download`, { responseType: 'blob' }).then((res) => {
+      const filenameIndex = res.headers['content-disposition'].indexOf('filename');
+      const start = res.headers['content-disposition'].indexOf('"', filenameIndex);
+      const end = res.headers['content-disposition'].indexOf('"', start + 1);
+      const filename = res.headers['content-disposition'].substring(start + 1, end);
+
+      const blob = new Blob([res.data], { type: res.headers['content-type'] });
+      const downloadElement = document.createElement('a');
+      const href = window.URL.createObjectURL(blob);
+      downloadElement.href = href;
+      downloadElement.download = decodeURIComponent(filename);
+      document.body.appendChild(downloadElement);
+      downloadElement.click();
+      document.body.removeChild(downloadElement);
+      window.URL.revokeObjectURL(href);
+      console.log('fuck');
+    });
+  };
+
   const element = `
-    <a id="download" href="/api/race/${router.query.get('id')}/download" class="btn btn-primary">下载参赛者信息</a>
+    <button id="download" class="btn btn-primary">下载参赛者信息</button>
     <table class="table" style="margin-top: 30px">
       <thead class="thead-light">
         <tr>
@@ -34,6 +54,10 @@ const membersMembers = (router) => {
     </table>`;
 
   window.$('#main').append(element);
+
+  window.$('#download').click(() => {
+    downloadInfor();
+  });
 
   window.$(() => {
     getData();
