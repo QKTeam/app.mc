@@ -89,8 +89,9 @@ const competitionApply = (router) => {
       major: data.major,
       school_number: data.schoolNumber,
       competition_type: +data.competitionType,
-    }).then((res) => {
-      console.log(res.data);
+    }).then(() => {
+      alert('报名成功');
+      window.location.hash = '/competition/list';
     });
   };
 
