@@ -18,6 +18,9 @@ const defaultResponseError = (error) => {
       alert(error.response.data.message);
       window.location.hash = '/auth/login';
       break;
+    case 422:
+      alert('请检查表单填写');
+      break;
     default:
       break;
   }
