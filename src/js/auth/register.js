@@ -41,6 +41,12 @@ const register = () => {
     });
   };
   const submit = () => {
+    const errorList = Array.from(document.getElementsByTagName('p'));
+    for (let i = 0; i < errorList.length; i += 1) {
+      if (window.$(errorList[i]).attr('name') === 'error') {
+        errorList[i].innerText = '';
+      }
+    }
     if (data.password !== data.repeatPassword) {
       document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
       return;
@@ -51,6 +57,17 @@ const register = () => {
       captcha: data.captcha,
     }).then(() => {
       window.location.hash = '/auth/activate';
+    }).catch((e) => {
+      Object.keys(e.response.data).forEach((key) => {
+        for (let i = 0; i < errorList.length; i += 1) {
+          if (
+            window.$(errorList[i]).attr('name') === 'error'
+            && window.$(errorList[i]).attr('aria-labelledby') === key
+          ) {
+            [errorList[i].innerText] = e.response.data[key];
+          }
+        }
+      });
     });
   };
 
@@ -64,16 +81,15 @@ const register = () => {
               <label for="email">邮箱</label>
               <input
                 id="email"
-                type="email"
                 class="form-control"
                 aria-describedby="emailHelp"
                 placeholder="Enter email">
-              <p id="error-email"></p>
+              <p id="error-email" style="color: red" name="error" aria-labelledby="email"></p>
             </div>
             <div class="form-group">
               <label for="password">密码</label>
               <input type="password" class="form-control" id="password" placeholder="Password">
-              <p id="error-password"></p>
+              <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
             </div>
             <div class="form-group">
               <label for="repeatPassword">确认密码</label>
@@ -82,12 +98,12 @@ const register = () => {
                 class="form-control"
                 id="repeatPassword"
                 placeholder="Repeat password">
-              <p id="error-repeatPassword"></p>
+              <p id="error-repeatPassword" style="color: red" name="error" aria-labelledby="repeatPassword"></p>
             </div>
             <div id="captchaForm" class="form-group">
               <label for="captcha">验证码</label>
               <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
-              <p id="error-captcha"></p>
+              <p id="error-captcha" style="color: red" name="error" aria-labelledby="captcha"></p>
             </div>
             <div style="color: grey; font-size: 14px" class="form-group">不区分大小写，点击验证码重新获取</div>
             <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">

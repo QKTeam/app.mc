@@ -79,6 +79,12 @@ const competitionApply = (router) => {
   };
 
   const submit = () => {
+    const errorList = Array.from(document.getElementsByTagName('p'));
+    for (let i = 0; i < errorList.length; i += 1) {
+      if (window.$(errorList[i]).attr('name') === 'error') {
+        errorList[i].innerText = '';
+      }
+    }
     service.post(`/race/apply/${router.query.get('id')}`, {
       truename: data.truename,
       gender: +data.gender,
@@ -92,6 +98,17 @@ const competitionApply = (router) => {
     }).then(() => {
       alert('报名成功');
       window.location.hash = '/competition/list';
+    }).catch((e) => {
+      Object.keys(e.response.data).forEach((key) => {
+        for (let i = 0; i < errorList.length; i += 1) {
+          if (
+            window.$(errorList[i]).attr('name') === 'error'
+            && window.$(errorList[i]).attr('aria-labelledby') === key
+          ) {
+            [errorList[i].innerText] = e.response.data[key];
+          }
+        }
+      });
     });
   };
 
@@ -132,7 +149,7 @@ const competitionApply = (router) => {
           <div class="form-group">
             <label for="truename">姓名</label>
             <input id="truename" class="form-control" placeholder="姓名">
-            <p id="error-truename"></p>
+            <p id="error-truename" style="color: red" name="error" aria-labelledby="truename"></p>
           </div>
           <div class="form-group">
             <label for="gender">性别</label>
@@ -156,26 +173,27 @@ const competitionApply = (router) => {
                 <label class="form-check-label" for="female">女</label>
               </div>
             </div>
+            <p id="error-gender" style="color: red" name="error" aria-labelledby="gender"></p>
           </div>
           <div class="form-group">
             <label for="qqAcount">qq帐户</label>
             <input id="qqAcount" class="form-control" placeholder="qq帐户">
-            <p id="error-qqAcount"></p>
+            <p id="error-qq_number" style="color: red" name="error" aria-labelledby="qq_number"></p>
           </div>
           <div class="form-group">
             <label for="phone">电话</label>
             <input id="phone" class="form-control" placeholder="电话">
-            <p id="error-phone"></p>
+            <p id="error-phone" style="color: red" name="error" aria-labelledby="phone"></p>
           </div>
           <div class="form-group">
             <label for="idNumber">身份证号</label>
             <input id="idNumber" class="form-control" placeholder="身份证号">
-            <p id="error-idNumber"></p>
+            <p id="error-id_code" style="color: red" name="error" aria-labelledby="id_code"></p>
           </div>
           <div class="form-group">
             <label for="schoolNumber">学号</label>
             <input id="schoolNumber" class="form-control" placeholder="学号">
-            <p id="error-schoolNumber"></p>
+            <p id="error-school_number" style="color: red" name="error" aria-labelledby="school_number"></p>
           </div>
           <div class="form-group">
             <label for="college">学院</label>
@@ -186,10 +204,11 @@ const competitionApply = (router) => {
           <div id="extend" style="display: none" class="form-group">
             <input id="other" class="form-control" placeholder="学院名称">
           </div>
+          <p id="error-college" style="color: red" name="error" aria-labelledby="college"></p>
           <div class="form-group">
             <label for="major">专业</label>
             <input id="major" class="form-control" placeholder="专业">
-            <p id="error-major"></p>
+            <p id="error-major" style="color: red" name="error" aria-labelledby="major"></p>
           </div>
           <div class="form-group">
             <label for="competitionType">比赛类型</label>
@@ -213,6 +232,7 @@ const competitionApply = (router) => {
                 <label class="form-check-label" for="non-math">非数学专业</label>
               </div>
             </div>
+            <p id="error-competition_type" style="color: red" name="error" aria-labelledby="competition_type"></p>
           </div>
           <div style="text-align: center">
             <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">提交报名</button>
