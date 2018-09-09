@@ -18,13 +18,21 @@ router.route('/auth/login', () => {
   Components.default(router);
   Components.login(router);
 });
-router.route('/auth/activate', () => {
+router.route('/auth/send', () => {
   Components.default(router);
-  Components.activate(router);
+  Components.sendEmail(router);
 });
 router.route('/auth/verify', () => {
   Components.default(router);
   Components.verify(router);
+});
+router.route('/auth/reset', () => {
+  Components.default(router);
+  Components.reset(router);
+});
+router.route('/auth/reset_password', () => {
+  Components.default(router);
+  Components.resetPassword(router);
 });
 router.route('/center', () => {
   Components.default(router);

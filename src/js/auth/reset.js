@@ -1,7 +1,7 @@
 import sha256 from 'sha256';
 import service from '../../service';
 
-const login = () => {
+const reset = (router) => {
   const data = {
     get email() {
       return document.querySelector('#email').value;
@@ -15,24 +15,12 @@ const login = () => {
     set password(val) {
       document.querySelector('#password').value = val;
     },
-    get captcha() {
-      return document.querySelector('#captcha').value;
+    get repeatPassword() {
+      return document.querySelector('#repeatPassword').value;
     },
-    set captcha(val) {
-      document.querySelector('#captcha').value = val;
+    set repeatPassword(val) {
+      document.querySelector('#repeatPassword').value = val;
     },
-  };
-
-  let captchaSVG = '';
-
-  const getCaptcha = () => {
-    service.get('/auth/captcha').then((res) => {
-      window.localStorage['Captcha-Token'] = res.headers['captcha-token'];
-      captchaSVG = res.data;
-      if (document.querySelector('#captchaSVG')) {
-        document.querySelector('#captchaSVG').innerHTML = captchaSVG;
-      }
-    });
   };
 
   const submit = () => {
@@ -42,14 +30,17 @@ const login = () => {
         errorList[i].innerText = '';
       }
     }
-    service.post('/auth/login', {
+    if (data.password !== data.repeatPassword) {
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
+      return;
+    }
+    service.put('/user/resetPwd', {
       email: data.email,
       password: sha256(data.password),
-      captcha: data.captcha,
-    }).then((res) => {
-      window.localStorage['Api-Token'] = res.data.token;
-      window.localStorage.user_id = res.data.user_id;
-      window.localStorage.access = res.data.access;
+      reset: router.query.get('reset'),
+      id: +router.query.get('id'),
+    }).then(() => {
+      alert('重置密码成功');
       window.location.hash = '/center';
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
@@ -69,7 +60,7 @@ const login = () => {
     <div style="width: 100%; position: relative; top: 80px">
       <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
         <div class="card-body">
-          <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
+          <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
           <form onsubmit="return false">
             <div class="form-group">
               <label for="email">邮箱</label>
@@ -85,22 +76,16 @@ const login = () => {
               <input type="password" class="form-control" id="password" placeholder="Password">
               <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
             </div>
-            <div id="captchaForm" class="form-group">
-              <label for="captcha">验证码</label>
-              <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
-              <p id="error-captcha" style="color: red" name="error" aria-labelledby="captcha"></p>
-            </div>
-            <div style="color: grey; font-size: 14px" class="form-group">不区分大小写，点击验证码重新获取</div>
-            <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
-              ${captchaSVG}
-            </div>
-            <div id="register-remind" class="form-group">
-              <a href="#/auth/register">学生账号注册点击这里</a>
-            </div>
             <div class="form-group">
-              <a href="#/auth/reset_password">忘记密码</a>
+              <label for="repeatPassword">确认密码</label>
+              <input
+                type="password"
+                class="form-control"
+                id="repeatPassword"
+                placeholder="Repeat password">
+              <p id="error-repeatPassword" style="color: red" name="error" aria-labelledby="repeatPassword"></p>
             </div>
-            <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">登录</button>
+            <button id="reset-submit" type="submit" class="btn btn-primary" style="width: 100%">重置</button>
           </form>
         </div>
       </div>
@@ -108,17 +93,17 @@ const login = () => {
 
   document.querySelector('#main').innerHTML = element;
 
-  document.querySelector('#login-submit').addEventListener('click', () => {
+  document.querySelector('#reset-submit').addEventListener('click', () => {
     submit();
   });
 
-  document.querySelector('#captchaSVG').addEventListener('click', () => {
-    getCaptcha();
-  });
-
-  window.$(() => {
-    getCaptcha();
+  document.querySelector('#repeatPassword').addEventListener('input', () => {
+    if (data.password !== data.repeatPassword) {
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
+    } else {
+      document.querySelector('#error-repeatPassword').innerText = '';
+    }
   });
 };
 
-export default login;
+export default reset;

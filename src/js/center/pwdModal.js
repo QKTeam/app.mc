@@ -25,7 +25,7 @@ function pwdModal() {
 
   function savePassword() {
     if (data.password !== data.repeatPassword) {
-      document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
     }
 
@@ -83,7 +83,7 @@ function pwdModal() {
 
   document.querySelector('#repeatPassword').addEventListener('input', () => {
     if (data.password !== data.repeatPassword) {
-      document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
     } else {
       document.querySelector('#error-repeatPassword').innerText = '';
     }

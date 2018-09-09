@@ -66,8 +66,10 @@ const layout = (router) => {
 
 export { default as register } from './auth/register';
 export { default as login } from './auth/login';
-export { default as activate } from './auth/activate';
+export { default as sendEmail } from './auth/send';
 export { default as verify } from './auth/verify';
+export { default as reset } from './auth/reset';
+export { default as resetPassword } from './auth/resetPassword';
 export { default as base } from './center/base';
 export { default as centerProfile } from './center/profile';
 export { default as competitionList } from './competition/list';

@@ -48,7 +48,7 @@ const register = () => {
       }
     }
     if (data.password !== data.repeatPassword) {
-      document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
     }
     service.post('/auth/register', {
@@ -56,7 +56,7 @@ const register = () => {
       password: sha256(data.password),
       captcha: data.captcha,
     }).then(() => {
-      window.location.hash = '/auth/activate';
+      window.location.hash = '/auth/send';
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
         for (let i = 0; i < errorList.length; i += 1) {
@@ -123,7 +123,7 @@ const register = () => {
 
   document.querySelector('#repeatPassword').addEventListener('input', () => {
     if (data.password !== data.repeatPassword) {
-      document.querySelector('#error-repeatPassword').innerText = 'repeat password incorrect';
+      document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
     } else {
       document.querySelector('#error-repeatPassword').innerText = '';
     }

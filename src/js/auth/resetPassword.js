@@ -1,19 +1,12 @@
-import sha256 from 'sha256';
 import service from '../../service';
 
-const login = () => {
+const resetPassword = () => {
   const data = {
     get email() {
       return document.querySelector('#email').value;
     },
     set email(val) {
       document.querySelector('#email').value = val;
-    },
-    get password() {
-      return document.querySelector('#password').value;
-    },
-    set password(val) {
-      document.querySelector('#password').value = val;
     },
     get captcha() {
       return document.querySelector('#captcha').value;
@@ -42,15 +35,11 @@ const login = () => {
         errorList[i].innerText = '';
       }
     }
-    service.post('/auth/login', {
+    service.post('/user/resetPwd', {
       email: data.email,
-      password: sha256(data.password),
       captcha: data.captcha,
-    }).then((res) => {
-      window.localStorage['Api-Token'] = res.data.token;
-      window.localStorage.user_id = res.data.user_id;
-      window.localStorage.access = res.data.access;
-      window.location.hash = '/center';
+    }).then(() => {
+      window.location.hash = '/auth/send';
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
         for (let i = 0; i < errorList.length; i += 1) {
@@ -69,7 +58,7 @@ const login = () => {
     <div style="width: 100%; position: relative; top: 80px">
       <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
         <div class="card-body">
-          <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
+          <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
           <form onsubmit="return false">
             <div class="form-group">
               <label for="email">邮箱</label>
@@ -80,11 +69,6 @@ const login = () => {
                 placeholder="Enter email">
               <p id="error-email" style="color: red" name="error" aria-labelledby="email"></p>
             </div>
-            <div class="form-group">
-              <label for="password">密码</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
-              <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
-            </div>
             <div id="captchaForm" class="form-group">
               <label for="captcha">验证码</label>
               <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
@@ -94,13 +78,7 @@ const login = () => {
             <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
               ${captchaSVG}
             </div>
-            <div id="register-remind" class="form-group">
-              <a href="#/auth/register">学生账号注册点击这里</a>
-            </div>
-            <div class="form-group">
-              <a href="#/auth/reset_password">忘记密码</a>
-            </div>
-            <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">登录</button>
+            <button id="resetPassword-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
           </form>
         </div>
       </div>
@@ -108,7 +86,7 @@ const login = () => {
 
   document.querySelector('#main').innerHTML = element;
 
-  document.querySelector('#login-submit').addEventListener('click', () => {
+  document.querySelector('#resetPassword-submit').addEventListener('click', () => {
     submit();
   });
 
@@ -121,4 +99,4 @@ const login = () => {
   });
 };
 
-export default login;
+export default resetPassword;
