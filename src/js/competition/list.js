@@ -139,7 +139,7 @@ const competitionList = () => {
   }
 
   const studentPart = `
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="margin-bottom: 10px">
       <li class="nav-item">
         <a id="allCompetition" class="nav-link active" style="cursor: pointer">所有比赛</a>
       </li>
