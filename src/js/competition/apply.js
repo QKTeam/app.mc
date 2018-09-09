@@ -205,7 +205,7 @@ const competitionApply = (router) => {
             </div>
           </div>
           <div style="text-align: center">
-            <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+            <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">提交报名</button>
           </div>
         </form>
       </div>

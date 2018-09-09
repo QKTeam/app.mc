@@ -90,7 +90,7 @@ function competitionCreate() {
   const element = `
     <div class="card" style="width: 800px; margin: auto; margin-bottom: 80px">
       <div class="card-body">
-        <h4 class="card-title" style="margin-bottom: 24px">创建比赛信息</h4>
+        <h4 class="card-title" style="margin-bottom: 24px">创建比赛</h4>
         <form onsubmit="return false">
           <div class="form-group">
             <label for="name">比赛名称</label>
@@ -140,7 +140,7 @@ function competitionCreate() {
             <p id="error-introduction"></p>
           </div>
           <div style="text-align: center">
-            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">Submit</button>
+            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">创建比赛</button>
           </div>
         </form>
       </div>

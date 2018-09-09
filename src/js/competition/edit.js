@@ -142,7 +142,7 @@ function competitionEdit(router) {
             <p id="error-introduction"></p>
           </div>
           <div style="text-align: center">
-            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">Submit</button>
+            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">修改比赛</button>
           </div>
         </form>
       </div>
