@@ -14,6 +14,9 @@ const defaultResponseSuccess = response => response;
 const defaultResponseError = (error) => {
   console.log(error.response);
   switch (error.response.status) {
+    case 400:
+      alert(error.response.data.message);
+      break;
     case 401:
       alert(error.response.data.message);
       window.location.hash = '/auth/login';
