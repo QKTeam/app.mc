@@ -34,7 +34,6 @@ const membersMembers = (router) => {
       downloadElement.click();
       document.body.removeChild(downloadElement);
       window.URL.revokeObjectURL(href);
-      console.log('fuck');
     });
   };
 

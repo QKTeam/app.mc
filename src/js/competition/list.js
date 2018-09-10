@@ -22,6 +22,24 @@ const competitionList = () => {
     return '';
   };
 
+  const competitionStatus = (status) => {
+    let des = '';
+    switch (status) {
+      case 0:
+        des = '报名未开始';
+        break;
+      case 1:
+        des = '报名进行中';
+        break;
+      case 2:
+        des = '报名已结束';
+        break;
+      default:
+        break;
+    }
+    return des;
+  };
+
   const handle = (data) => {
     if (data.length) {
       data.forEach((obj) => {
@@ -75,7 +93,7 @@ const competitionList = () => {
           <tr style="cursor: pointer" data-toggle="collapse" data-target="#${obj.id}" aria-expanded="false" aria-controls="${obj.id}">
             <th scope="row">${obj.id}</th>
             <td>${obj.name}</td>
-            <td>competitionStatus</td>
+            <td>${competitionStatus(obj.status)}</td>
             <td>${obj.start_time}</td>
             <td>${obj.end_time}</td>
             <td>${applyStatus(obj.id)}</td>
