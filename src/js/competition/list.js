@@ -2,6 +2,25 @@ import service from '../../service';
 
 const competitionList = () => {
   let activePart = 'allCompetition';
+  let allCompetition = [];
+  let myCompetition = [];
+
+  const applyJudge = (id) => {
+    let judgement = false;
+    myCompetition.forEach((obj) => {
+      if (obj.id === id) {
+        judgement = true;
+      }
+    });
+    return judgement;
+  };
+
+  const applyStatus = (id) => {
+    if (applyJudge(id)) {
+      return '已报名';
+    }
+    return '';
+  };
 
   const handle = (data) => {
     if (data.length) {
@@ -17,6 +36,12 @@ const competitionList = () => {
                 style="width: 100px"
                 class="btn btn-primary"
                 >报名</button>`;
+            if (applyJudge(obj.id)) {
+              submitGroup += `
+                <span style="color: darkred; font-size: 14px; margin-left: 10px">
+                  注意：您已报名该比赛，再次报名会覆盖信息
+                </span>`;
+            }
           } else {
             submitGroup = `
               <button
@@ -50,13 +75,15 @@ const competitionList = () => {
           <tr style="cursor: pointer" data-toggle="collapse" data-target="#${obj.id}" aria-expanded="false" aria-controls="${obj.id}">
             <th scope="row">${obj.id}</th>
             <td>${obj.name}</td>
+            <td>competitionStatus</td>
             <td>${obj.start_time}</td>
             <td>${obj.end_time}</td>
+            <td>${applyStatus(obj.id)}</td>
           </tr>`;
 
         const detail = `
           <tr>
-            <td colspan="4" style="border-top: 0">
+            <td colspan="6" style="border-top: 0">
               <div class="collapse" id="${obj.id}" >
                 <div class="card card-body">
                   <div style="margin-bottom: 6px">
@@ -97,7 +124,7 @@ const competitionList = () => {
     } else {
       const empty = `
         <tr>
-          <td colspan="4" style="text-align: center">empty</td>
+          <td colspan="6" style="text-align: center">empty</td>
         </tr>`;
 
       window.$('#competition').append(empty);
@@ -133,15 +160,17 @@ const competitionList = () => {
 
   const getData = () => {
     window.$('#competition').empty();
-    if (activePart === 'allCompetition') {
-      service.get('/race').then((res) => {
-        handle(res.data);
+    service.get('/race').then((res) => {
+      allCompetition = res.data;
+      service.get('user/races').then((r) => {
+        myCompetition = r.data;
+        if (activePart === 'allCompetition') {
+          handle(allCompetition);
+        } else {
+          handle(myCompetition);
+        }
       });
-    } else {
-      service.get('user/races').then((res) => {
-        handle(res.data);
-      });
-    }
+    });
   };
 
   let createPart = '';
@@ -170,8 +199,10 @@ const competitionList = () => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">比赛名称</th>
+            <th scope="col">比赛状态</th>
             <th scope="col">报名开始时间</th>
             <th scope="col">报名结束时间</th>
+            <th scope="col">报名状态</th>
           </tr>
         </thead>
         <tbody id="competition"></tbody>
