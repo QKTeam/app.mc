@@ -124,14 +124,20 @@ function competitionEdit(router) {
             <input id="principalPhone" class="form-control">
             <p id="error-principalPhone"></p>
           </div>
-          <div>
-            <div class="form-group" style="display: inline-block; width: 45%">
-              <label for="startTime">报名开始时间</label>
+          <div class="form-group">
+            <div style="display: inline-block; width: 45%">
+              <label for="startTime">
+                <span>报名开始时间</span>
+                <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
+              </label>
               <input id="startTime" class="form-control">
               <p id="error-startTime"></p>
             </div>
-            <div class="form-group" style="display: inline-block; width: 45%">
-              <label for="endTime">报名结束时间</label>
+            <div style="display: inline-block; width: 45%">
+              <label for="endTime">
+                <span>报名结束时间</span>
+                <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
+              </label>
               <input id="endTime" class="form-control">
               <p id="error-endTime"></p>
             </div>
