@@ -54,7 +54,7 @@ const reset = (router) => {
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 col-12">
-          <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
+          <div class="card" style="margin-bottom: 80px">
             <div class="card-body">
               <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
               <form onsubmit="return false">
