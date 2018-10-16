@@ -67,42 +67,48 @@ const login = () => {
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
-      <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
-        <div class="card-body">
-          <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
-          <form onsubmit="return false">
-            <div class="form-group">
-              <label for="email">邮箱</label>
-              <input
-                id="email"
-                class="form-control"
-                aria-describedby="emailHelp"
-                placeholder="Enter email">
-              <p id="error-email" style="color: red" name="error" aria-labelledby="email"></p>
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 col-12">
+          <div class="card" style="margin-bottom: 80px">
+            <div class="card-body">
+              <h4 class="card-title" style="margin-bottom: 24px">统一账号登录</h4>
+              <form onsubmit="return false">
+                <div class="form-group">
+                  <label for="email">邮箱</label>
+                  <input
+                    id="email"
+                    class="form-control"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email">
+                  <p id="error-email" style="color: red" name="error" aria-labelledby="email"></p>
+                </div>
+                <div class="form-group">
+                  <label for="password">密码</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password">
+                  <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
+                </div>
+                <div id="captchaForm" class="form-group">
+                  <label for="captcha">验证码</label>
+                  <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
+                  <p id="error-captcha" style="color: red" name="error" aria-labelledby="captcha"></p>
+                </div>
+                <div style="color: grey; font-size: 14px" class="form-group">不区分大小写，点击验证码重新获取</div>
+                <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
+                  ${captchaSVG}
+                </div>
+                <div id="register-remind" class="form-group">
+                  <a href="#/auth/register">学生账号点击这里注册</a>
+                </div>
+                <div class="form-group">
+                  <a href="#/auth/reset_password">忘记密码</a>
+                </div>
+                <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">登录</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="password">密码</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
-              <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
-            </div>
-            <div id="captchaForm" class="form-group">
-              <label for="captcha">验证码</label>
-              <input autocomplete="off" class="form-control" id="captcha" placeholder="Captcha">
-              <p id="error-captcha" style="color: red" name="error" aria-labelledby="captcha"></p>
-            </div>
-            <div style="color: grey; font-size: 14px" class="form-group">不区分大小写，点击验证码重新获取</div>
-            <div id="captchaSVG" style="display: inline-block; cursor: pointer" class="form-group">
-              ${captchaSVG}
-            </div>
-            <div id="register-remind" class="form-group">
-              <a href="#/auth/register">学生账号点击这里注册</a>
-            </div>
-            <div class="form-group">
-              <a href="#/auth/reset_password">忘记密码</a>
-            </div>
-            <button id="login-submit" type="submit" class="btn btn-primary" style="width: 100%">登录</button>
-          </form>
+          </div>
         </div>
+        <div class="col-sm-3"></div>
       </div>
     </div>`;
 

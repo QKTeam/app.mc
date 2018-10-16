@@ -144,54 +144,60 @@ const edit = () => {
     </div>`;
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto; margin-bottom: 80px">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-bottom: 24px">个人信息修改</h4>
-        <form onsubmit="return false">
-          <div class="form-group">
-            <label for="truename">姓名</label>
-            <input id="truename" class="form-control" placeholder="姓名">
-            <p id="error-truename"></p>
-          </div>
-          <div class="form-group">
-            <label for="gender">性别</label>
-            <div id="gender">
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="male"
-                  value="0">
-                <label class="form-check-label" for="male">男</label>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 col-12">
+        <div class="card" style="margin-bottom: 80px">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-bottom: 24px">个人信息修改</h4>
+            <form onsubmit="return false">
+              <div class="form-group">
+                <label for="truename">姓名</label>
+                <input id="truename" class="form-control" placeholder="姓名">
+                <p id="error-truename"></p>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="female"
-                  value="1">
-                <label class="form-check-label" for="female">女</label>
+              <div class="form-group">
+                <label for="gender">性别</label>
+                <div id="gender">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="male"
+                      value="0">
+                    <label class="form-check-label" for="male">男</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="female"
+                      value="1">
+                    <label class="form-check-label" for="female">女</label>
+                  </div>
+                </div>
               </div>
-            </div>
+              <div class="form-group">
+                <label for="qqAcount">qq帐户</label>
+                <input id="qqAcount" class="form-control" placeholder="qq帐户">
+                <p id="error-qqAcount"></p>
+              </div>
+              <div class="form-group">
+                <label for="phone">电话</label>
+                <input id="phone" class="form-control" placeholder="电话">
+                <p id="error-phone"></p>
+              </div>
+              ${+window.localStorage.access === -1 ? studentPart : ''}
+              <div style="text-align: center">
+                <button id="edit-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="qqAcount">qq帐户</label>
-            <input id="qqAcount" class="form-control" placeholder="qq帐户">
-            <p id="error-qqAcount"></p>
-          </div>
-          <div class="form-group">
-            <label for="phone">电话</label>
-            <input id="phone" class="form-control" placeholder="电话">
-            <p id="error-phone"></p>
-          </div>
-          ${+window.localStorage.access === -1 ? studentPart : ''}
-          <div style="text-align: center">
-            <button id="edit-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
-          </div>
-        </form>
+        </div>
       </div>
+      <div class="col-sm-2"></div>
     </div>`;
 
   pwdModal();

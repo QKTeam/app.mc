@@ -88,62 +88,68 @@ function competitionCreate() {
   }
 
   const element = `
-    <div class="card" style="width: 800px; margin: auto; margin-bottom: 80px">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-bottom: 24px">创建比赛</h4>
-        <form onsubmit="return false">
-          <div class="form-group">
-            <label for="name">比赛名称</label>
-            <input id="name" class="form-control">
-            <p id="error-name"></p>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 col-12">
+        <div class="card" style="margin-bottom: 80px">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-bottom: 24px">创建比赛</h4>
+            <form onsubmit="return false">
+              <div class="form-group">
+                <label for="name">比赛名称</label>
+                <input id="name" class="form-control">
+                <p id="error-name"></p>
+              </div>
+              <div class="form-group">
+                <label for="competitionArea">比赛地区</label>
+                <input id="competitionArea" class="form-control">
+                <p id="error-competitionArea"></p>
+              </div>
+              <div class="form-group">
+                <label for="schoolName">学校名称</label>
+                <input id="schoolName" class="form-control">
+                <p id="error-schoolName"></p>
+              </div>
+              <div class="form-group">
+                <label for="principalName">负责人姓名</label>
+                <input id="principalName" class="form-control">
+                <p id="error-principalName"></p>
+              </div>
+              <div class="form-group">
+                <label for="principalEmail">负责人邮箱</label>
+                <input id="principalEmail" class="form-control">
+                <p id="error-principalEmail"></p>
+              </div>
+              <div class="form-group">
+                <label for="principalPhone">负责人电话</label>
+                <input id="principalPhone" class="form-control">
+                <p id="error-principalPhone"></p>
+              </div>
+              <div>
+                <div class="form-group" style="display: inline-block; width: 45%">
+                  <label for="startTime">报名开始时间</label>
+                  <input id="startTime" class="form-control">
+                  <p id="error-startTime"></p>
+                </div>
+                <div class="form-group" style="display: inline-block; width: 45%">
+                  <label for="endTime">报名结束时间</label>
+                  <input id="endTime" class="form-control">
+                  <p id="error-endTime"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="introduction">比赛介绍</label>
+                <textarea id="introduction" class="form-control"></textarea>
+                <p id="error-introduction"></p>
+              </div>
+              <div style="text-align: center">
+                <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">创建比赛</button>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="competitionArea">比赛地区</label>
-            <input id="competitionArea" class="form-control">
-            <p id="error-competitionArea"></p>
-          </div>
-          <div class="form-group">
-            <label for="schoolName">学校名称</label>
-            <input id="schoolName" class="form-control">
-            <p id="error-schoolName"></p>
-          </div>
-          <div class="form-group">
-            <label for="principalName">负责人姓名</label>
-            <input id="principalName" class="form-control">
-            <p id="error-principalName"></p>
-          </div>
-          <div class="form-group">
-            <label for="principalEmail">负责人邮箱</label>
-            <input id="principalEmail" class="form-control">
-            <p id="error-principalEmail"></p>
-          </div>
-          <div class="form-group">
-            <label for="principalPhone">负责人电话</label>
-            <input id="principalPhone" class="form-control">
-            <p id="error-principalPhone"></p>
-          </div>
-          <div>
-            <div class="form-group" style="display: inline-block; width: 45%">
-              <label for="startTime">报名开始时间</label>
-              <input id="startTime" class="form-control">
-              <p id="error-startTime"></p>
-            </div>
-            <div class="form-group" style="display: inline-block; width: 45%">
-              <label for="endTime">报名结束时间</label>
-              <input id="endTime" class="form-control">
-              <p id="error-endTime"></p>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="introduction">比赛介绍</label>
-            <textarea id="introduction" class="form-control"></textarea>
-            <p id="error-introduction"></p>
-          </div>
-          <div style="text-align: center">
-            <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">创建比赛</button>
-          </div>
-        </form>
+        </div>
       </div>
+      <div class="col-sm-2"></div>
     </div>`;
 
   document.querySelector('#main').innerHTML = element;

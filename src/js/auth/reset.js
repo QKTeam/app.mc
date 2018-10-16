@@ -51,27 +51,33 @@ const reset = (router) => {
 
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
-      <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
-        <div class="card-body">
-          <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
-          <form onsubmit="return false">
-            <div class="form-group">
-              <label for="password">密码</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
-              <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 col-12">
+          <div class="card" style="width: 400px; margin: auto; margin-bottom: 80px">
+            <div class="card-body">
+              <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
+              <form onsubmit="return false">
+                <div class="form-group">
+                  <label for="password">密码</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password">
+                  <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
+                </div>
+                <div class="form-group">
+                  <label for="repeatPassword">确认密码</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="repeatPassword"
+                    placeholder="Repeat password">
+                  <p id="error-repeatPassword" style="color: red" name="error" aria-labelledby="repeatPassword"></p>
+                </div>
+                <button id="reset-submit" type="submit" class="btn btn-primary" style="width: 100%">重置</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="repeatPassword">确认密码</label>
-              <input
-                type="password"
-                class="form-control"
-                id="repeatPassword"
-                placeholder="Repeat password">
-              <p id="error-repeatPassword" style="color: red" name="error" aria-labelledby="repeatPassword"></p>
-            </div>
-            <button id="reset-submit" type="submit" class="btn btn-primary" style="width: 100%">重置</button>
-          </form>
+          </div>
         </div>
+        <div class="col-sm-3"></div>
       </div>
     </div>`;
 

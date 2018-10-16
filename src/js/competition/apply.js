@@ -172,103 +172,109 @@ const competitionApply = (router) => {
   };
 
   const element = `
-    <div class="card" style="width: 600px; margin: auto; margin-bottom: 80px">
-      <div class="card-body">
-        <h4 class="card-title" style="margin-bottom: 24px">报名信息</h4>
-        <form onsubmit="return false">
-          <div class="form-group">
-            <label for="truename">姓名</label>
-            <input id="truename" class="form-control" placeholder="姓名">
-            <p id="error-truename" style="color: red" name="error" aria-labelledby="truename"></p>
-          </div>
-          <div class="form-group">
-            <label for="gender">性别</label>
-            <div id="gender">
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="male"
-                  value="0">
-                <label class="form-check-label" for="male">男</label>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 col-12">
+        <div class="card" style="margin-bottom: 80px">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-bottom: 24px">报名信息</h4>
+            <form onsubmit="return false">
+              <div class="form-group">
+                <label for="truename">姓名</label>
+                <input id="truename" class="form-control" placeholder="姓名">
+                <p id="error-truename" style="color: red" name="error" aria-labelledby="truename"></p>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="female"
-                  value="1">
-                <label class="form-check-label" for="female">女</label>
+              <div class="form-group">
+                <label for="gender">性别</label>
+                <div id="gender">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="male"
+                      value="0">
+                    <label class="form-check-label" for="male">男</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="female"
+                      value="1">
+                    <label class="form-check-label" for="female">女</label>
+                  </div>
+                </div>
+                <p id="error-gender" style="color: red" name="error" aria-labelledby="gender"></p>
               </div>
-            </div>
-            <p id="error-gender" style="color: red" name="error" aria-labelledby="gender"></p>
-          </div>
-          <div class="form-group">
-            <label for="qqAcount">qq帐户</label>
-            <input id="qqAcount" class="form-control" placeholder="qq帐户">
-            <p id="error-qq_number" style="color: red" name="error" aria-labelledby="qq_number"></p>
-          </div>
-          <div class="form-group">
-            <label for="phone">电话</label>
-            <input id="phone" class="form-control" placeholder="电话">
-            <p id="error-phone" style="color: red" name="error" aria-labelledby="phone"></p>
-          </div>
-          <div class="form-group">
-            <label for="idNumber">身份证号</label>
-            <input id="idNumber" class="form-control" placeholder="身份证号">
-            <p id="error-id_code" style="color: red" name="error" aria-labelledby="id_code"></p>
-          </div>
-          <div class="form-group">
-            <label for="schoolNumber">学号</label>
-            <input id="schoolNumber" class="form-control" placeholder="学号">
-            <p id="error-school_number" style="color: red" name="error" aria-labelledby="school_number"></p>
-          </div>
-          <div class="form-group">
-            <label for="college">学院</label>
-            <select class="custom-select" id="college">
-              <option selected>请选择...</option>
-            </select>
-          </div>
-          <div id="extend" style="display: none" class="form-group">
-            <input id="other" class="form-control" placeholder="学院名称">
-          </div>
-          <p id="error-college" style="color: red" name="error" aria-labelledby="college"></p>
-          <div class="form-group">
-            <label for="major">专业</label>
-            <input id="major" class="form-control" placeholder="专业">
-            <p id="error-major" style="color: red" name="error" aria-labelledby="major"></p>
-          </div>
-          <div class="form-group">
-            <label for="competitionType">比赛类型</label>
-            <div id="competitionType">
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="competitionType"
-                  id="math"
-                  value="1">
-                <label class="form-check-label" for="math">数学专业</label>
+              <div class="form-group">
+                <label for="qqAcount">qq帐户</label>
+                <input id="qqAcount" class="form-control" placeholder="qq帐户">
+                <p id="error-qq_number" style="color: red" name="error" aria-labelledby="qq_number"></p>
               </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="competitionType"
-                  id="non-math"
-                  value="0">
-                <label class="form-check-label" for="non-math">非数学专业</label>
+              <div class="form-group">
+                <label for="phone">电话</label>
+                <input id="phone" class="form-control" placeholder="电话">
+                <p id="error-phone" style="color: red" name="error" aria-labelledby="phone"></p>
               </div>
-            </div>
-            <p id="error-competition_type" style="color: red" name="error" aria-labelledby="competition_type"></p>
+              <div class="form-group">
+                <label for="idNumber">身份证号</label>
+                <input id="idNumber" class="form-control" placeholder="身份证号">
+                <p id="error-id_code" style="color: red" name="error" aria-labelledby="id_code"></p>
+              </div>
+              <div class="form-group">
+                <label for="schoolNumber">学号</label>
+                <input id="schoolNumber" class="form-control" placeholder="学号">
+                <p id="error-school_number" style="color: red" name="error" aria-labelledby="school_number"></p>
+              </div>
+              <div class="form-group">
+                <label for="college">学院</label>
+                <select class="custom-select" id="college">
+                  <option selected>请选择...</option>
+                </select>
+              </div>
+              <div id="extend" style="display: none" class="form-group">
+                <input id="other" class="form-control" placeholder="学院名称">
+              </div>
+              <p id="error-college" style="color: red" name="error" aria-labelledby="college"></p>
+              <div class="form-group">
+                <label for="major">专业</label>
+                <input id="major" class="form-control" placeholder="专业">
+                <p id="error-major" style="color: red" name="error" aria-labelledby="major"></p>
+              </div>
+              <div class="form-group">
+                <label for="competitionType">比赛类型</label>
+                <div id="competitionType">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="competitionType"
+                      id="math"
+                      value="1">
+                    <label class="form-check-label" for="math">数学专业</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="competitionType"
+                      id="non-math"
+                      value="0">
+                    <label class="form-check-label" for="non-math">非数学专业</label>
+                  </div>
+                </div>
+                <p id="error-competition_type" style="color: red" name="error" aria-labelledby="competition_type"></p>
+              </div>
+              <div style="text-align: center">
+                <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">提交报名</button>
+              </div>
+            </form>
           </div>
-          <div style="text-align: center">
-            <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">提交报名</button>
-          </div>
-        </form>
+        </div>
       </div>
+      <div class="col-sm-2"></div>
     </div>`;
 
   document.querySelector('#main').innerHTML = element;
