@@ -60,6 +60,12 @@ function competitionEdit(router) {
   };
 
   function submit() {
+    const errorList = Array.from(document.getElementsByTagName('p'));
+    for (let i = 0; i < errorList.length; i += 1) {
+      if (window.$(errorList[i]).attr('name') === 'error') {
+        errorList[i].innerText = '';
+      }
+    }
     service.put(`/race/${router.query.get('id')}`, {
       name: data.name,
       competition_area: data.competitionArea,
@@ -70,8 +76,20 @@ function competitionEdit(router) {
       principal_phone: data.principalPhone,
       start_time: moment(data.startTime).format('YYYY-MM-DD HH:mm:ss'),
       end_time: moment(data.endTime).format('YYYY-MM-DD HH:mm:ss'),
-    }).then((res) => {
-      console.log(res.data);
+    }).then(() => {
+      alert('修改成功');
+      window.location.hash = '/competition/list';
+    }).catch((e) => {
+      Object.keys(e.response.data).forEach((key) => {
+        for (let i = 0; i < errorList.length; i += 1) {
+          if (
+            window.$(errorList[i]).attr('name') === 'error'
+            && window.$(errorList[i]).attr('aria-labelledby') === key
+          ) {
+            [errorList[i].innerText] = e.response.data[key];
+          }
+        }
+      });
     });
   }
 
@@ -100,58 +118,54 @@ function competitionEdit(router) {
               <div class="form-group">
                 <label for="name">比赛名称</label>
                 <input id="name" class="form-control">
-                <p id="error-name"></p>
+                <p id="error-name" style="color: red" name="error" aria-labelledby="name"></p>
               </div>
               <div class="form-group">
                 <label for="competitionArea">比赛地区</label>
                 <input id="competitionArea" class="form-control">
-                <p id="error-competitionArea"></p>
+                <p id="error-competitionArea" style="color: red" name="error" aria-labelledby="competition_area"></p>
               </div>
               <div class="form-group">
                 <label for="schoolName">学校名称</label>
                 <input id="schoolName" class="form-control">
-                <p id="error-schoolName"></p>
+                <p id="error-schoolName" style="color: red" name="error" aria-labelledby="school_name"></p>
               </div>
               <div class="form-group">
                 <label for="principalName">负责人姓名</label>
                 <input id="principalName" class="form-control">
-                <p id="error-principalName"></p>
+                <p id="error-principalName" style="color: red" name="error" aria-labelledby="principal_name"></p>
               </div>
               <div class="form-group">
                 <label for="principalEmail">负责人邮箱</label>
                 <input id="principalEmail" class="form-control">
-                <p id="error-principalEmail"></p>
+                <p id="error-principalEmail" style="color: red" name="error" aria-labelledby="principal_email"></p>
               </div>
               <div class="form-group">
                 <label for="principalPhone">负责人电话</label>
                 <input id="principalPhone" class="form-control">
-                <p id="error-principalPhone"></p>
+                <p id="error-principalPhone" style="color: red" name="error" aria-labelledby="principal_phone"></p>
               </div>
-              <div class="form-group">
-                <div style="display: inline-block; width: 45%">
-                  <label for="startTime">
-                    <span>报名开始时间</span>
-                    <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
-                  </label>
+              <div>
+                <div class="form-group" style="display: inline-block; width: 45%">
+                  <label for="startTime">报名开始时间</label>
+                  <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
                   <input id="startTime" class="form-control">
-                  <p id="error-startTime"></p>
+                  <p id="error-startTime" style="color: red" name="error" aria-labelledby="start_time"></p>
                 </div>
-                <div style="display: inline-block; width: 45%">
-                  <label for="endTime">
-                    <span>报名结束时间</span>
-                    <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
-                  </label>
+                <div class="form-group" style="display: inline-block; width: 45%">
+                  <label for="endTime">报名结束时间</label>
+                  <span style="color: grey; font-size: 14px">单击输入框选择时间</span>
                   <input id="endTime" class="form-control">
-                  <p id="error-endTime"></p>
+                  <p id="error-endTime" style="color: red" name="error" aria-labelledby="end_time"></p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="introduction">比赛介绍</label>
                 <textarea id="introduction" class="form-control"></textarea>
-                <p id="error-introduction"></p>
+                <p id="error-introduction" style="color: red" name="error" aria-labelledby="introduction"></p>
               </div>
               <div style="text-align: center">
-                <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">修改比赛</button>
+                <button id="race-submit" type="submit" class="btn btn-primary" style="width: 50%">创建比赛</button>
               </div>
             </form>
           </div>
