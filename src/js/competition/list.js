@@ -1,9 +1,11 @@
+import QRCodeModal from './qrcodeModal';
 import service from '../../service';
 
 const competitionList = () => {
   let activePart = 'allCompetition';
   let allCompetition = [];
   let myCompetition = [];
+  const qrcodeModal = new QRCodeModal();
 
   const applyJudge = (id) => {
     let judgement = false;
@@ -75,6 +77,11 @@ const competitionList = () => {
               aria-labelledby="${obj.id}"
               class="btn btn-primary"
               >查看参赛者</button>
+            <button
+              name="qrcode"
+              aria-labelledby="${obj.id}"
+              class="btn btn-warning"
+              >查看二维码</button>
             <button
               name="modify"
               aria-labelledby="${obj.id}"
@@ -149,26 +156,30 @@ const competitionList = () => {
     }
 
     window.$('button').click((event) => {
+      const id = window.$(event.target).attr('aria-labelledby');
       switch (event.target.name) {
         case 'detail':
-          window.location.hash = `/competition/members?id=${window.$(event.target).attr('aria-labelledby')}`;
+          window.location.hash = `/competition/members?id=${id}`;
           break;
         case 'create':
           window.location.hash = '/competition/create';
           break;
         case 'modify':
-          window.location.hash = `/competition/edit?id=${window.$(event.target).attr('aria-labelledby')}`;
+          window.location.hash = `/competition/edit?id=${id}`;
           break;
         case 'delete':
-          service.delete(`/race/${window.$(event.target).attr('aria-labelledby')}`).then(() => {
+          service.delete(`/race/${id}`).then(() => {
             window.location.reload();
           });
           break;
         case 'apply':
-          window.location.hash = `/competition/apply?id=${window.$(event.target).attr('aria-labelledby')}`;
+          window.location.hash = `/competition/apply?id=${id}`;
           break;
         case 'infor':
-          window.location.hash = `/competition/infor?id=${window.$(event.target).attr('aria-labelledby')}`;
+          window.location.hash = `/competition/infor?id=${id}`;
+          break;
+        case 'qrcode':
+          qrcodeModal.getQRCode(id).show();
           break;
         default:
           break;
