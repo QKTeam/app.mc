@@ -3,13 +3,14 @@ import service from '../../service';
 
 const competitionList = () => {
   let activePart = 'allCompetition';
-  let allCompetition = [];
-  let myCompetition = [];
+  const allCompetition = {};
+  const myCompetition = {};
   const qrcodeModal = new QRCodeModal();
 
   const applyJudge = (id) => {
     let judgement = false;
-    myCompetition.forEach((obj) => {
+    Object.keys(myCompetition).forEach((key) => {
+      const obj = myCompetition[key];
       if (obj.id === id) {
         judgement = true;
       }
@@ -43,8 +44,9 @@ const competitionList = () => {
   };
 
   const handle = (data) => {
-    if (data.length) {
-      data.forEach((obj) => {
+    if (Object.keys(data).length) {
+      Object.keys(data).forEach((key) => {
+        const obj = data[key];
         let submitGroup;
 
         if (+window.localStorage.access === -1) {
@@ -179,7 +181,7 @@ const competitionList = () => {
           window.location.hash = `/competition/infor?id=${id}`;
           break;
         case 'qrcode':
-          qrcodeModal.getQRCode(id).show();
+          qrcodeModal.getInfo(data[id]).show();
           break;
         default:
           break;
@@ -190,9 +192,13 @@ const competitionList = () => {
   const getData = () => {
     window.$('#competition').empty();
     service.get('/race').then((res) => {
-      allCompetition = res.data;
+      res.data.forEach((obj) => {
+        allCompetition[obj.id] = obj;
+      });
       service.get('user/races').then((r) => {
-        myCompetition = r.data;
+        r.data.forEach((obj) => {
+          myCompetition[obj.id] = obj;
+        });
         if (activePart === 'allCompetition') {
           handle(allCompetition);
         } else {
