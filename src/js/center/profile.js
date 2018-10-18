@@ -145,8 +145,8 @@ const edit = () => {
 
   const element = `
     <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8 col-12">
+      <div class="col-lg-2 col-xl-3"></div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6">
         <div class="card" style="margin-bottom: 80px">
           <div class="card-body">
             <h4 class="card-title" style="margin-bottom: 24px">个人信息修改</h4>
@@ -197,7 +197,7 @@ const edit = () => {
           </div>
         </div>
       </div>
-      <div class="col-sm-2"></div>
+      <div class="col-lg-2 col-xl-3"></div>
     </div>`;
 
   pwdModal();

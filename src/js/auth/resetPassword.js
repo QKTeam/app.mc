@@ -57,8 +57,8 @@ const resetPassword = () => {
   const element = `
     <div style="width: 100%; position: relative; top: 80px">
       <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 col-12">
+        <div class="col-lg-2 col-xl-3"></div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6">
           <div class="card" margin-bottom: 80px">
             <div class="card-body">
               <h4 class="card-title" style="margin-bottom: 24px">重置密码</h4>
@@ -86,7 +86,7 @@ const resetPassword = () => {
             </div>
           </div>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-lg-2 col-xl-3"></div>
       </div>
     </div>`;
 
