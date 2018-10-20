@@ -50,7 +50,13 @@ const login = () => {
       window.localStorage['Api-Token'] = res.data.token;
       window.localStorage.user_id = res.data.user_id;
       window.localStorage.access = res.data.access;
-      window.location.hash = '/center';
+
+      const applyId = window.$router.query.get('apply_id');
+      if (applyId !== null) {
+        window.location.hash = `/competition/apply?id=${applyId}`;
+      } else {
+        window.location.hash = '/center';
+      }
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
         for (let i = 0; i < errorList.length; i += 1) {
