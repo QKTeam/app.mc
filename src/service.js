@@ -33,7 +33,7 @@ const defaultResponseError = (error) => {
   return Promise.reject(error);
 };
 
-const service = axios.create({ baseURL: '/api' });
+const service = axios.create({ baseURL: '/mc/api' });
 service.interceptors.request.use(defaultRequestConfig, defaultRequestError);
 service.interceptors.response.use(defaultResponseSuccess, defaultResponseError);
 
