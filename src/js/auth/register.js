@@ -56,7 +56,7 @@ const register = () => {
       password: sha256(data.password),
       captcha: data.captcha,
     }).then(() => {
-      window.location.hash = '/auth/send';
+      window.location.hash = `/auth/send?email=${data.email}`;
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
         for (let i = 0; i < errorList.length; i += 1) {
