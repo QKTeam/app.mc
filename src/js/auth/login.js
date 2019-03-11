@@ -72,7 +72,7 @@ const login = () => {
   };
 
   const element = `
-    <div style="width: 100%; position: relative; top: 80px">
+    <div style="width: 100%">
       <div class="row">
         <div class="col-lg-2 col-xl-3"></div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6">
