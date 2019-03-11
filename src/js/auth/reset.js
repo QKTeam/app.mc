@@ -30,6 +30,7 @@ const reset = (router) => {
     }
     document.querySelector('#reset-submit').disabled = true;
     service.put('/user/resetPwd', {
+      origin_password: data.password,
       password: sha256(data.password),
       reset: router.query.get('reset'),
       id: +router.query.get('id'),
@@ -62,8 +63,8 @@ const reset = (router) => {
               <form onsubmit="return false">
                 <div class="form-group">
                   <label for="password">密码</label>
-                  <input type="password" class="form-control" id="password" placeholder="Password">
-                  <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
+                  <input type="password" class="form-control" id="password" placeholder="密码长度为6-18">
+                  <p id="error-password" style="color: red" name="error" aria-labelledby="origin_password"></p>
                 </div>
                 <div class="form-group">
                   <label for="repeatPassword">确认密码</label>
