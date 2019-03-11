@@ -41,7 +41,6 @@ const register = () => {
     });
   };
   const submit = () => {
-    document.querySelector('#register-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -52,8 +51,10 @@ const register = () => {
       document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
     }
+    document.querySelector('#register-submit').disabled = true;
     service.post('/auth/register', {
       email: data.email,
+      origin_password: data.password,
       password: sha256(data.password),
       captcha: data.captcha,
     }).then(() => {
@@ -93,8 +94,8 @@ const register = () => {
                 </div>
                 <div class="form-group">
                   <label for="password">密码</label>
-                  <input type="password" class="form-control" id="password" placeholder="Password">
-                  <p id="error-password" style="color: red" name="error" aria-labelledby="password"></p>
+                  <input type="password" class="form-control" id="password" placeholder="密码长度为6-18">
+                  <p id="error-password" style="color: red" name="error" aria-labelledby="origin_password"></p>
                 </div>
                 <div class="form-group">
                   <label for="repeatPassword">确认密码</label>
