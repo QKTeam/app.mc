@@ -18,11 +18,12 @@ const defaultResponseError = (error) => {
       break;
     case 401:
       alert(error.response.data.message);
-      if (window.location.hash.split('/')[2].split('?')[0] === 'apply') {
-        window.location.hash = `/auth/login?apply_id=${window.$router.query.get('id')}`;
-      } else {
-        window.location.hash = '/auth/login';
+      if (window.location.hash.split('/')[2]) {
+        if (window.location.hash.split('/')[2].split('?')[0] === 'apply') {
+          window.location.hash = `/auth/login?apply_id=${window.$router.query.get('id')}`;
+        }
       }
+      window.location.hash = '/auth/login';
       break;
     case 422:
       alert('请检查表单填写');
