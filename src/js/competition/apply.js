@@ -85,17 +85,6 @@ const competitionApply = (router) => {
         errorList[i].innerText = '';
       }
     }
-    if (!data.college || data.college === '请选择...') {
-      for (let i = 0; i < errorList.length; i += 1) {
-        if (
-          window.$(errorList[i]).attr('name') === 'error'
-          && window.$(errorList[i]).attr('aria-labelledby') === 'college'
-        ) {
-          errorList[i].innerText = '请选择学院';
-          return;
-        }
-      }
-    }
     document.querySelector('#apply-submit').disabled = true;
     service.post(`/race/apply/${router.query.get('id')}`, {
       truename: data.truename,
@@ -244,7 +233,7 @@ const competitionApply = (router) => {
               <div class="form-group">
                 <label for="college">学院</label>
                 <select class="custom-select" id="college">
-                  <option selected>请选择...</option>
+                  <option value="" selected>请选择...</option>
                 </select>
               </div>
               <div id="extend" style="display: none" class="form-group">
