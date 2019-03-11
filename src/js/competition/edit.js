@@ -60,6 +60,7 @@ function competitionEdit(router) {
   };
 
   function submit() {
+    document.querySelector('#race-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -90,6 +91,7 @@ function competitionEdit(router) {
           }
         }
       });
+      document.querySelector('#race-submit').disabled = false;
     });
   }
 

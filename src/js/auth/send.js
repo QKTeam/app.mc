@@ -28,6 +28,7 @@ const send = (router) => {
     });
   };
   const resend = () => {
+    document.querySelector('#resend-button').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -50,6 +51,7 @@ const send = (router) => {
           }
         }
       });
+      document.querySelector('#resend-button').disabled = false;
     });
   };
   const showCaptcha = () => {

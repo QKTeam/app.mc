@@ -18,6 +18,7 @@ const reset = (router) => {
   };
 
   const submit = () => {
+    document.querySelector('#reset-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -46,6 +47,7 @@ const reset = (router) => {
           }
         }
       });
+      document.querySelector('#reset-submit').disabled = false;
     });
   };
 

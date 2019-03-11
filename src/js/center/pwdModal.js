@@ -24,6 +24,7 @@ function pwdModal() {
   };
 
   function savePassword() {
+    document.querySelector('#savePassword').disabled = true;
     if (data.password !== data.repeatPassword) {
       document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
@@ -35,6 +36,8 @@ function pwdModal() {
     }).then(() => {
       alert('修改成功');
       window.location.reload();
+    }).catch(() => {
+      document.querySelector('#savePassword').disabled = false;
     });
   }
 

@@ -41,6 +41,7 @@ const register = () => {
     });
   };
   const submit = () => {
+    document.querySelector('#register-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -68,6 +69,7 @@ const register = () => {
           }
         }
       });
+      document.querySelector('#register-submit').disabled = false;
     });
   };
 

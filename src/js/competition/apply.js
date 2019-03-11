@@ -79,6 +79,7 @@ const competitionApply = (router) => {
   };
 
   const submit = () => {
+    document.querySelector('#apply-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -109,6 +110,7 @@ const competitionApply = (router) => {
           }
         }
       });
+      document.querySelector('#apply-submit').disabled = false;
     });
   };
 
