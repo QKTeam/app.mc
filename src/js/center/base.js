@@ -81,7 +81,7 @@ const base = () => {
   };
 
   const element = `
-    <div style="width: 65%; margin: auto; margin-bottom: 80px">
+    <div style="width: 80%; margin: auto; margin-bottom: 80px">
       <div class="row" style="margin-bottom: 14px">
         <div class="col">
           <div class="card" style="height: 100%">

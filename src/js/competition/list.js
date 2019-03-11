@@ -74,28 +74,32 @@ const competitionList = () => {
           }
         } else {
           submitGroup = `
-            <button
-              name="detail"
-              aria-labelledby="${obj.id}"
-              class="btn btn-primary"
-              >查看参赛者</button>
-            <button
-              name="qrcode"
-              aria-labelledby="${obj.id}"
-              class="btn btn-warning"
-              >查看二维码</button>
-            <button
-              name="modify"
-              aria-labelledby="${obj.id}"
-              style="width: 100px"
-              class="btn btn-success"
-              >修改</button>
-            <button
-              name="delete"
-              aria-labelledby="${obj.id}"
-              style="width: 100px"
-              class="btn btn-danger"
-              >删除</button>`;
+            <div class="row">
+              <button
+                name="detail"
+                aria-labelledby="${obj.id}"
+                class="btn btn-primary"
+                >查看参赛者</button>
+              <button
+                name="modify"
+                aria-labelledby="${obj.id}"
+                style="width: 100px; margin-left: 20px"
+                class="btn btn-success"
+                >修改</button>
+            </div>
+            <div class="row" style="margin-top: 10px">
+              <button
+                name="qrcode"
+                aria-labelledby="${obj.id}"
+                class="btn btn-warning"
+                >查看二维码</button>
+              <button
+                name="delete"
+                aria-labelledby="${obj.id}"
+                style="width: 100px; margin-left: 20px"
+                class="btn btn-danger"
+                >删除</button>
+            </div>`;
         }
 
         const list = `
