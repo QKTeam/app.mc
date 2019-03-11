@@ -156,6 +156,7 @@ function competitionCreate() {
                   <input id="endTime" class="form-control">
                   <p id="error-endTime" style="color: red" name="error" aria-labelledby="end_time"></p>
                 </div>
+                <p id="error-time" style="color: red" name="error" aria-labelledby="time"></p>
               </div>
               <div class="form-group">
                 <label for="introduction">比赛介绍</label>
