@@ -28,13 +28,13 @@ const send = (router) => {
     });
   };
   const resend = () => {
-    document.querySelector('#resend-button').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
         errorList[i].innerText = '';
       }
     }
+    document.querySelector('#resend-button').disabled = true;
     service.post('user/reActive', {
       email: router.query.get('email'),
       captcha: data.captcha,

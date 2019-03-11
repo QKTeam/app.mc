@@ -29,13 +29,13 @@ const resetPassword = () => {
   };
 
   const submit = () => {
-    document.querySelector('#resetPassword-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
         errorList[i].innerText = '';
       }
     }
+    document.querySelector('#resetPassword-submit').disabled = true;
     service.post('/user/resetPwd', {
       email: data.email,
       captcha: data.captcha,

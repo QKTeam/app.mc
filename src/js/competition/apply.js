@@ -79,13 +79,13 @@ const competitionApply = (router) => {
   };
 
   const submit = () => {
-    document.querySelector('#apply-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
         errorList[i].innerText = '';
       }
     }
+    document.querySelector('#apply-submit').disabled = true;
     service.post(`/race/apply/${router.query.get('id')}`, {
       truename: data.truename,
       gender: +data.gender,

@@ -60,13 +60,13 @@ function competitionEdit(router) {
   };
 
   function submit() {
-    document.querySelector('#race-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
         errorList[i].innerText = '';
       }
     }
+    document.querySelector('#race-submit').disabled = true;
     service.put(`/race/${router.query.get('id')}`, {
       name: data.name,
       competition_area: data.competitionArea,

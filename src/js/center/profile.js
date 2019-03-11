@@ -70,7 +70,6 @@ const edit = () => {
   };
 
   const submit = () => {
-    document.querySelector('#edit-submit').disabled = true;
     const infor = {
       truename: data.truename,
       gender: +data.gender,
@@ -83,6 +82,7 @@ const edit = () => {
       infor.major = data.major;
       infor.school_number = data.schoolNumber;
     }
+    document.querySelector('#edit-submit').disabled = true;
     service.put('/user/profile', infor).then(() => {
       alert('修改成功');
       window.location.hash = '/center';

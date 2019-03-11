@@ -24,12 +24,12 @@ function pwdModal() {
   };
 
   function savePassword() {
-    document.querySelector('#savePassword').disabled = true;
     if (data.password !== data.repeatPassword) {
       document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
     }
 
+    document.querySelector('#savePassword').disabled = true;
     service.put('/user/changePwd', {
       password_old: sha256(data.oldPassword),
       password_new: sha256(data.password),

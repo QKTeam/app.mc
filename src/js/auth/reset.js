@@ -18,7 +18,6 @@ const reset = (router) => {
   };
 
   const submit = () => {
-    document.querySelector('#reset-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
@@ -29,6 +28,7 @@ const reset = (router) => {
       document.querySelector('#error-repeatPassword').innerText = '重复密码不正确';
       return;
     }
+    document.querySelector('#reset-submit').disabled = true;
     service.put('/user/resetPwd', {
       password: sha256(data.password),
       reset: router.query.get('reset'),

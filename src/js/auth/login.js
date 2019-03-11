@@ -36,13 +36,13 @@ const login = () => {
   };
 
   const submit = () => {
-    document.querySelector('#login-submit').disabled = true;
     const errorList = Array.from(document.getElementsByTagName('p'));
     for (let i = 0; i < errorList.length; i += 1) {
       if (window.$(errorList[i]).attr('name') === 'error') {
         errorList[i].innerText = '';
       }
     }
+    document.querySelector('#login-submit').disabled = true;
     service.post('/auth/login', {
       email: data.email,
       password: sha256(data.password),
