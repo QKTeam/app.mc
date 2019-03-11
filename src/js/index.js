@@ -22,23 +22,25 @@ const layout = (router) => {
   }
 
   const element = `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#">数学竞赛</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: space-between">
-          <ul class="navbar-nav">
-            ${mainPart}
-          </ul>
-          <ul class="navbar-nav">
-            ${authPart}
-          </ul>
+    <div class="container">
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">数学竞赛</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: space-between">
+            <ul class="navbar-nav">
+              ${mainPart}
+            </ul>
+            <ul class="navbar-nav">
+              ${authPart}
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-    <div class="container" id="main" style="margin-top: 30px"></div>`;
+      </nav>
+      <div id="main" style="margin-top: 80px"></div>
+    </div>`;
 
   window.$('body').empty();
   window.$('body').append(element);
