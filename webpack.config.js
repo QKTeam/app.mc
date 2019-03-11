@@ -11,9 +11,10 @@ module.exports = {
     watchContentBase: true,
     port: 9000,
     proxy: {
-      '/api': {
-        target: 'http://192.168.1.105:3000',
-        pathRewrite: { '^/api': '' },
+      '/mc/api': {
+        target: 'http://mc.dawnever.com',
+        pathRewrite: {'^/mc/api' : '/api'},
+        changeOrigin: true,
       },
     },
   },

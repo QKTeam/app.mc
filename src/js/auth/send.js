@@ -74,17 +74,27 @@ const send = (router) => {
 
     getCaptcha();
   };
-  const element = `
-    <div id="captchaPart" style="text-align: center; margin-top: 160px">
-      <h2>已发送邮件，请注意查收～</h2>
-      <div style="color: #007bff; cursor: pointer" id="resend-link">若没有收到邮件，点击重新发送</div>
-    </div>`;
+  let element = '';
+  if (router.query.get('email')) {
+    element = `
+      <div id="captchaPart" style="text-align: center; margin-top: 160px">
+        <h2>已发送邮件，请注意查收～</h2>
+        <div style="color: #007bff; cursor: pointer" id="resend-link">若没有收到邮件，点击重新发送</div>
+      </div>`;
+  } else {
+    element = `
+      <div id="captchaPart" style="text-align: center; margin-top: 160px">
+        <h2>已发送邮件，请注意查收～</h2>
+      </div>`;
+  }
 
   document.querySelector('#main').innerHTML = element;
 
-  document.querySelector('#resend-link').addEventListener('click', () => {
-    showCaptcha();
-  });
+  if (document.querySelector('#resend-link')) {
+    document.querySelector('#resend-link').addEventListener('click', () => {
+      showCaptcha();
+    });
+  }
 };
 
 export default send;
