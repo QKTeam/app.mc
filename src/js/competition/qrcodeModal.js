@@ -41,7 +41,7 @@ class QRCodeModal {
       </a>
       <p>或扫描下面的二维码</p>`;
 
-    QRCode.toDataURL(`${window.location.origin}/#/competition/apply?id=${data.id}`)
+    QRCode.toDataURL(`${window.location.origin}${window.location.pathname}#/competition/apply?id=${data.id}`)
       .then((url) => {
         this.qrcodeURI = url;
 
