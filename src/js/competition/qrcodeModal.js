@@ -36,8 +36,8 @@ class QRCodeModal {
       <p>至</p>
       <p>${data.end_time}</p>
       <p>报名请登录数学竞赛报名网站，链接:</p>
-      <a href="${window.location.origin}/#/competition/apply?id=${data.id}">
-        ${window.location.origin}/#/competition/apply?id=${data.id}
+      <a href="${window.location.origin}${window.location.pathname}#/competition/apply?id=${data.id}">
+        ${window.location.origin}${window.location.pathname}#/competition/apply?id=${data.id}
       </a>
       <p>或扫描下面的二维码</p>`;
 
