@@ -3,10 +3,10 @@ import service from '../../service';
 const membersMembers = (router) => {
   const getData = () => {
     service.get(`race/${router.query.get('id')}/members`).then((res) => {
-      res.data.forEach((obj) => {
+      res.data.forEach((obj, index) => {
         const list = `
           <tr>
-            <th scope="row">${obj.id}</th>
+            <th scope="row">${index + 1}</th>
             <td>${obj.truename}</td>
             <td>${obj.gender === 0 ? '男' : '女'}</td>
             <td>${obj.college}</td>
