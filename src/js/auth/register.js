@@ -58,7 +58,8 @@ const register = () => {
       password: sha256(data.password),
       captcha: data.captcha,
     }).then(() => {
-      window.location.hash = `/auth/send?email=${data.email}`;
+      alert('注册成功！请登录');
+      window.location.hash = '/auth/login';
     }).catch((e) => {
       Object.keys(e.response.data).forEach((key) => {
         for (let i = 0; i < errorList.length; i += 1) {

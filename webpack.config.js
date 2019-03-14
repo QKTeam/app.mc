@@ -12,9 +12,8 @@ module.exports = {
     port: 9000,
     proxy: {
       '/mc/api': {
-        target: 'http://mc.dawnever.com',
-        pathRewrite: {'^/mc/api' : '/api'},
-        changeOrigin: true,
+        target: 'http://192.168.1.102:3000',
+        pathRewrite: {'^/mc/api' : ''},
       },
     },
   },
