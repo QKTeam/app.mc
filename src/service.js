@@ -30,6 +30,9 @@ const defaultResponseError = (error) => {
     case 422:
       alert('请检查表单填写');
       break;
+    case 500:
+      alert('服务器繁忙');
+      break;
     default:
       break;
   }
