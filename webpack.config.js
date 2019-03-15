@@ -1,4 +1,5 @@
 const path = require('path');
+const config = require('./.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -14,8 +15,9 @@ module.exports = {
     port: 9000,
     proxy: {
       '/mc/api': {
-        target: 'http://192.168.1.102:3000',
-        pathRewrite: {'^/mc/api' : ''},
+        target: config.proxyTarget || 'http://192.168.1.102:3000',
+        pathRewrite: {'^/mc/api' : config.proxyPrefix || ''},
+        changeOrigin: true,
       },
     },
   },
