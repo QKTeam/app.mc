@@ -4,7 +4,7 @@ const membersMembers = (router) => {
   const deleteStudent = (id) => {
     const msg = '您真的确定要删除吗？';
     if (window.confirm(msg) === true) {
-      service.delete(`/race/${router.query.get('id')}/members/${id}`).then(() => {
+      service.delete(`race/${router.query.get('id')}/members/${id}`).then(() => {
         alert('删除成功！');
         window.location.reload();
       });
