@@ -1,6 +1,17 @@
 import service from '../../service';
 
 const membersMembers = (router) => {
+  const deleteStudent = (id) => {
+    console.log(id);
+    const msg = '您真的确定要删除吗？';
+    if (window.confirm(msg) === true) {
+      service.delete(`/race/${router.query.get('id')}/members/${id}`).then(() => {
+        alert('删除成功！');
+        window.location.reload();
+      });
+    }
+  };
+
   const getData = () => {
     service.get(`race/${router.query.get('id')}/members`).then((res) => {
       res.data.forEach((obj, index) => {
@@ -11,9 +22,21 @@ const membersMembers = (router) => {
             <td>${obj.gender === 0 ? '男' : '女'}</td>
             <td>${obj.college}</td>
             <td>${obj.school_number}</td>
+            <td>
+              <button
+                name="delete"
+                class="btn btn-danger"
+                aria-labelledby="${obj.user_id}"}">移除</button>
+            </td>
           </tr>`;
 
         window.$('#members').append(list);
+      });
+      window.$('button').click((event) => {
+        if (event.target.name === 'delete') {
+          const userId = window.$(event.target).attr('aria-labelledby');
+          deleteStudent(userId);
+        }
       });
     });
   };
@@ -47,6 +70,7 @@ const membersMembers = (router) => {
           <th scope="col">性别</th>
           <th scope="col">学院</th>
           <th scope="col">学号</th>
+          <th scope="col">操作</th>
         </tr>
       </thead>
       <tbody id="members"></tbody>
