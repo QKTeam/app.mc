@@ -61,6 +61,7 @@ const membersMembers = (router) => {
 
   const element = `
     <button id="download" class="btn btn-primary">下载参赛者信息</button>
+    <button id="statistics" style="margin-left: 20px" class="btn btn-primary">查看数据统计信息</button>
     <table class="table" style="margin-top: 30px">
       <thead class="thead-light">
         <tr>
@@ -79,6 +80,10 @@ const membersMembers = (router) => {
 
   window.$('#download').click(() => {
     downloadInfor();
+  });
+
+  window.$('#statistics').click(() => {
+    window.location.hash = `/competition/statistics?id=${router.query.get('id')}`;
   });
 
   window.$(() => {

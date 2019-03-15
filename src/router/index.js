@@ -72,5 +72,11 @@ router.route('/competition/members', () => {
     Components.competitionMembers(router);
   }
 });
+router.route('/competition/statistics', () => {
+  if (router.search && router.search !== '?') {
+    Components.default(router);
+    Components.competitionStatistics(router);
+  }
+});
 
 export default router;
