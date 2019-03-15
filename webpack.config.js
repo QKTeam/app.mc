@@ -8,8 +8,9 @@ module.exports = {
     filename: '[hash].bundle.js',
   },
   devServer: {
-    inline: true,
-    watchContentBase: true,
+    contentBase: './build',
+    open: true,
+    hot: true,
     port: 9000,
     proxy: {
       '/mc/api': {
@@ -46,7 +47,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, 'index.html'),
+      template: path.resolve('index.html'),
       hash: true,
     }),
   ],
