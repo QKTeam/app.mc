@@ -2,7 +2,6 @@ import service from '../../service';
 
 const membersMembers = (router) => {
   const deleteStudent = (id) => {
-    console.log(id);
     const msg = '您真的确定要删除吗？';
     if (window.confirm(msg) === true) {
       service.delete(`/race/${router.query.get('id')}/members/${id}`).then(() => {
