@@ -33,6 +33,9 @@ const defaultResponseError = (error) => {
     case 500:
       alert('服务器繁忙');
       break;
+    case 503:
+      alert('服务器正在维护');
+      break;
     default:
       break;
   }
