@@ -39,6 +39,9 @@ const infor = (router) => {
         document.querySelector('#competitionType').innerText = '数学专业';
       }
     },
+    set campus(val) {
+      document.querySelector('#campus').innerText = val;
+    },
   };
 
   const getData = () => {
@@ -52,6 +55,7 @@ const infor = (router) => {
       data.college = res.data.college || '无';
       data.major = res.data.major || '无';
       data.competitionType = res.data.competition_type;
+      data.campus = res.data.campus;
     });
   };
 
@@ -98,6 +102,10 @@ const infor = (router) => {
               <div style="margin-bottom: 1rem">
                 <span style="display: inline-block; width: 100px">专业</span>
                 <span id="major"></span>
+              </div>
+              <div style="margin-bottom: 1rem">
+                <span style="display: inline-block; width: 100px">校区</span>
+                <span id="campus"></span>
               </div>
               <div style="margin-bottom: 1rem">
                 <span style="display: inline-block; width: 100px">参赛类型</span>

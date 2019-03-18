@@ -60,6 +60,16 @@ const competitionApply = (router) => {
       document.querySelector('#extend').style.display = 'inline-block';
       document.querySelector('#other').value = val;
     },
+    get campus() {
+      return document.querySelector('input[name="campus"]:checked').value;
+    },
+    set campus(val) {
+      if (val === '清水河校区') {
+        document.querySelector('#qingshuihe').checked = true;
+      } else if (val === '沙河校区') {
+        document.querySelector('#shahe').checked = true;
+      }
+    },
     get major() {
       return document.querySelector('#major').value;
     },
@@ -95,6 +105,7 @@ const competitionApply = (router) => {
       college: data.college,
       major: data.major,
       school_number: data.schoolNumber,
+      campus: data.campus,
       competition_type: +data.competitionType,
     }).then(() => {
       alert('报名成功');
@@ -124,6 +135,7 @@ const competitionApply = (router) => {
       data.idNumber = res.data.id_code || '';
       data.schoolNumber = res.data.school_number || '';
       data.college = res.data.college || '请选择...';
+      data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
       data.competitionType = res.data.competition_type || 1;
     });
@@ -139,6 +151,7 @@ const competitionApply = (router) => {
       data.idNumber = res.data.id_code || '';
       data.schoolNumber = res.data.school_number || '';
       data.college = res.data.college || '请选择...';
+      data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
       data.competitionType = res.data.competition_type || 1;
     });
@@ -244,6 +257,30 @@ const competitionApply = (router) => {
                 <label for="major">专业</label>
                 <input id="major" class="form-control" placeholder="专业">
                 <p id="error-major" style="color: red" name="error" aria-labelledby="major"></p>
+              </div>
+              <div class="form-group">
+                <label for="campus">校区</label>
+                <div id="campus">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="campus"
+                      id="qingshuihe"
+                      value="清水河校区">
+                    <label class="form-check-label" for="qingshuihe">清水河校区</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="campus"
+                      id="shahe"
+                      value="沙河校区">
+                    <label class="form-check-label" for="shahe">沙河校区</label>
+                  </div>
+                </div>
+                <p id="error-campus" style="color: red" name="error" aria-labelledby="campus"></p>
               </div>
               <div class="form-group">
                 <label for="competitionType">比赛类型</label>

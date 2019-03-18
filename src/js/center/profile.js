@@ -67,6 +67,16 @@ const edit = () => {
     set major(val) {
       document.querySelector('#major').value = val;
     },
+    get campus() {
+      return document.querySelector('input[name="campus"]:checked').value;
+    },
+    set campus(val) {
+      if (val === '清水河校区') {
+        document.querySelector('#qingshuihe').checked = true;
+      } else if (val === '沙河校区') {
+        document.querySelector('#shahe').checked = true;
+      }
+    },
   };
 
   const submit = () => {
@@ -81,6 +91,7 @@ const edit = () => {
       infor.college = data.college;
       infor.major = data.major;
       infor.school_number = data.schoolNumber;
+      infor.campus = data.campus;
     }
     document.querySelector('#edit-submit').disabled = true;
     service.put('/user/profile', infor).then(() => {
@@ -102,6 +113,7 @@ const edit = () => {
         data.schoolNumber = res.data.school_number || '';
         data.college = res.data.college || '请选择...';
         data.major = res.data.major || '';
+        data.campus = res.data.campus;
       }
     });
   };
@@ -193,6 +205,30 @@ const edit = () => {
                 <p id="error-phone"></p>
               </div>
               ${+window.localStorage.access === -1 ? studentPart : ''}
+              <div class="form-group">
+                <label for="campus">校区</label>
+                <div id="campus">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="campus"
+                      id="qingshuihe"
+                      value="清水河校区">
+                    <label class="form-check-label" for="qingshuihe">清水河校区</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="campus"
+                      id="shahe"
+                      value="沙河校区">
+                    <label class="form-check-label" for="shahe">沙河校区</label>
+                  </div>
+                </div>
+                <p id="error-campus" style="color: red" name="error" aria-labelledby="campus"></p>
+              </div>
               <div style="text-align: center">
                 <button id="edit-submit" type="submit" class="btn btn-primary" style="width: 100%">提交</button>
               </div>

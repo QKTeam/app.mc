@@ -26,6 +26,18 @@ const statistics = (router) => {
           window.$('#grade').append(list);
         });
       }
+
+      if (res.data.campus) {
+        Object.keys(res.data.campus).forEach((key) => {
+          const list = `
+            <tr>
+              <td>${key}</td>
+              <td style="text-align: center">${res.data.campus[key]}</td>
+            </tr>`;
+
+          window.$('#campus').append(list);
+        });
+      }
     });
   };
 
@@ -53,20 +65,29 @@ const statistics = (router) => {
     <table class="table" style="margin-top: 30px">
       <thead class="thead-light">
         <tr>
-          <th scope="col">学院</th>
-          <th style="text-align: center" scope="col">报名人数</th>
-        </tr>
-      </thead>
-      <tbody id="college"></tbody>
-    </table>
-    <table class="table" style="margin-top: 30px">
-      <thead class="thead-light">
-        <tr>
           <th scope="col">年级</th>
           <th style="text-align: center" scope="col">报名人数</th>
         </tr>
       </thead>
       <tbody id="grade"></tbody>
+    </table>
+    <table class="table" style="margin-top: 30px">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">校区</th>
+          <th style="text-align: center" scope="col">报名人数</th>
+        </tr>
+      </thead>
+      <tbody id="campus"></tbody>
+    </table>
+    <table class="table" style="margin-top: 30px">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">学院</th>
+          <th style="text-align: center" scope="col">报名人数</th>
+        </tr>
+      </thead>
+      <tbody id="college"></tbody>
     </table>`;
 
   window.$('#main').append(element);
