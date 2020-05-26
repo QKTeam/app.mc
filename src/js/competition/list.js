@@ -45,112 +45,66 @@ const competitionList = () => {
 
   const handle = (data) => {
     if (Object.keys(data).length) {
-      Object.keys(data).forEach((key) => {
+      Object.keys(data).forEach((key, idx) => {
         const obj = data[key];
         let submitGroup;
 
         if (+window.localStorage.access === -1) {
-          if (activePart === 'allCompetition') {
-            submitGroup = `
-              <button
-                name="apply"
-                aria-labelledby="${obj.id}"
-                style="width: 100px"
-                class="btn btn-primary"
-                >报名</button>`;
-            if (applyJudge(obj.id)) {
-              submitGroup += `
-                <span style="color: darkred; font-size: 14px; margin-left: 10px">
-                  注意：您已报名该比赛，再次报名会覆盖信息
-                </span>`;
-            }
-          } else {
-            submitGroup = `
-              <button
-                name="infor"
-                aria-labelledby="${obj.id}"
-                class="btn btn-primary"
-                >查看报名信息</button>`;
-          }
+          submitGroup = `
+            <button
+              name="apply"
+              aria-labelledby="${obj.id}"
+              class="btn btn-link btn-sm"
+              style="text-decoration: none;"
+              >${applyJudge(obj.id) ? '修改报名' : '报名'}</button>`;
         } else {
           submitGroup = `
-            <div class="row">
+            <div>
               <button
                 name="detail"
                 aria-labelledby="${obj.id}"
-                class="btn btn-primary"
-                >查看参赛者</button>
+                class="btn btn-link btn-sm"
+                style="text-decoration: none;"
+                >详情</button>
               <button
                 name="modify"
                 aria-labelledby="${obj.id}"
-                style="width: 100px; margin-left: 20px"
-                class="btn btn-success"
+                class="btn btn-link btn-sm"
+                style="text-decoration: none;"
                 >修改</button>
-            </div>
-            <div class="row" style="margin-top: 10px">
+              <button
+                name="members"
+                aria-labelledby="${obj.id}"
+                class="btn btn-link btn-sm"
+                style="text-decoration: none;"
+                >参赛者</button>
               <button
                 name="qrcode"
                 aria-labelledby="${obj.id}"
-                class="btn btn-warning"
-                >查看二维码</button>
+                class="btn btn-link btn-sm"
+                style="text-decoration: none;"
+                >二维码</button>
               <button
                 name="delete"
                 aria-labelledby="${obj.id}"
-                style="width: 100px; margin-left: 20px"
-                class="btn btn-danger"
+                class="btn btn-link btn-sm"
+                style="text-decoration: none; color: red;"
                 >删除</button>
             </div>`;
         }
 
         const list = `
-          <tr style="cursor: pointer" data-toggle="collapse" data-target="#${obj.id}" aria-expanded="false" aria-controls="${obj.id}">
-            <th scope="row">${obj.id}</th>
+          <tr>
+            <th scope="row">${idx + 1}</th>
             <td>${obj.name}</td>
             <td>${competitionStatus(obj.status)}</td>
             <td>${obj.start_time}</td>
             <td>${obj.end_time}</td>
-            <td>${applyStatus(obj.id)}</td>
-          </tr>`;
-
-        const detail = `
-          <tr>
-            <td colspan="6" style="border-top: 0">
-              <div class="collapse" id="${obj.id}" >
-                <div class="card card-body">
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">比赛地区</span>
-                    <span>${obj.competition_area || '无'}</span>
-                  </div>
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">学校名称</span>
-                    <span>${obj.school_name || '无'}</span>
-                  </div>
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">负责人姓名</span>
-                    <span>${obj.principal_name || '无'}</span>
-                  </div>
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">负责人邮箱</span>
-                    <span>${obj.principal_email || '无'}</span>
-                  </div>
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">负责人电话</span>
-                    <span>${obj.principal_phone || '无'}</span>
-                  </div>
-                  <div style="margin-bottom: 6px">
-                    <span style="display: inline-block; width: 100px">比赛介绍</span>
-                    <p>${obj.introduction || '无'}</p>
-                  </div>
-                  <div>
-                    ${submitGroup}
-                  </div>
-                </div>
-              </div>
-            </td>
+            ${+window.localStorage.access === -1 && `<td>${applyStatus(obj.id)}</td>`}
+            <td>${submitGroup}</td>
           </tr>`;
 
         window.$('#competition').append(list);
-        window.$('#competition').append(detail);
       });
     } else {
       const empty = `
@@ -165,6 +119,9 @@ const competitionList = () => {
       const id = window.$(event.target).attr('aria-labelledby');
       switch (event.target.name) {
         case 'detail':
+          window.location.hash = `/competition/detail?id=${id}`;
+          break;
+        case 'members':
           window.location.hash = `/competition/members?id=${id}`;
           break;
         case 'create':
@@ -174,9 +131,11 @@ const competitionList = () => {
           window.location.hash = `/competition/edit?id=${id}`;
           break;
         case 'delete':
-          service.delete(`/race/${id}`).then(() => {
-            window.location.reload();
-          });
+          if (window.confirm('确定要删除吗？')) {
+            service.delete(`/race/${id}`).then(() => {
+              window.location.reload();
+            });
+          }
           break;
         case 'apply':
           window.location.hash = `/competition/apply?id=${id}`;
@@ -230,18 +189,18 @@ const competitionList = () => {
 
   const element = `
     ${createPart}
-    <div style="margin-top: 20px">点击比赛可获取更多信息</div>
     <div style="margin-top: 30px">
       ${+window.localStorage.access === -1 ? studentPart : ''}
       <table class="table">
         <thead class="thead-light">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">比赛名称</th>
             <th scope="col">比赛状态</th>
             <th scope="col">报名开始时间</th>
             <th scope="col">报名结束时间</th>
-            <th scope="col">报名状态</th>
+            ${+window.localStorage.access === -1 ? '<th scope="col">报名状态</th>' : ''}
+            <th scope="col">操作</th>
           </tr>
         </thead>
         <tbody id="competition"></tbody>

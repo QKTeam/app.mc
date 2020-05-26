@@ -160,7 +160,7 @@ function competitionCreate() {
               </div>
               <div class="form-group">
                 <label for="introduction">比赛介绍</label>
-                <textarea id="introduction" class="form-control"></textarea>
+                <textarea id="introduction" class="form-control" style="height: 320px; resize: none;"></textarea>
                 <p id="error-introduction" style="color: red" name="error" aria-labelledby="introduction"></p>
               </div>
               <div style="text-align: center">
