@@ -78,5 +78,11 @@ router.route('/competition/statistics', () => {
     Components.competitionStatistics(router);
   }
 });
+router.route('/competition/detail', () => {
+  if (router.search && router.search !== '?') {
+    Components.default(router);
+    Components.competitionDetail(router);
+  }
+});
 
 export default router;

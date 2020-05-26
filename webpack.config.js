@@ -1,6 +1,6 @@
 const path = require('path');
-const config = require('./.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const config = require('./.config.js');
 
 module.exports = {
   entry: './src/main.js',
@@ -16,7 +16,7 @@ module.exports = {
     proxy: {
       '/mc/api': {
         target: config.proxyTarget || 'http://192.168.1.102:3000',
-        pathRewrite: {'^/mc/api' : config.proxyPrefix || ''},
+        pathRewrite: { '^/mc/api': config.proxyPrefix || '' },
         changeOrigin: true,
       },
     },

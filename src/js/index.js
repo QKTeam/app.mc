@@ -81,4 +81,5 @@ export { default as competitionApply } from './competition/apply';
 export { default as competitionInfor } from './competition/infor';
 export { default as competitionMembers } from './competition/members';
 export { default as competitionStatistics } from './competition/statistics';
+export { default as competitionDetail } from './competition/detail';
 export default layout;
