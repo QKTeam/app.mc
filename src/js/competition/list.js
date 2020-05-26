@@ -131,9 +131,11 @@ const competitionList = () => {
           window.location.hash = `/competition/edit?id=${id}`;
           break;
         case 'delete':
-          service.delete(`/race/${id}`).then(() => {
-            window.location.reload();
-          });
+          if (window.confirm('确定要删除吗？')) {
+            service.delete(`/race/${id}`).then(() => {
+              window.location.reload();
+            });
+          }
           break;
         case 'apply':
           window.location.hash = `/competition/apply?id=${id}`;
