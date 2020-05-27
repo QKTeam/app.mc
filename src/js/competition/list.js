@@ -191,20 +191,22 @@ const competitionList = () => {
     ${createPart}
     <div style="margin-top: 30px">
       ${+window.localStorage.access === -1 ? studentPart : ''}
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">比赛名称</th>
-            <th scope="col">比赛状态</th>
-            <th scope="col">报名开始时间</th>
-            <th scope="col">报名结束时间</th>
-            ${+window.localStorage.access === -1 ? '<th scope="col">报名状态</th>' : ''}
-            <th scope="col">操作</th>
-          </tr>
-        </thead>
-        <tbody id="competition"></tbody>
-      </table>
+      <div style="overflow-x: scroll;">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">比赛名称</th>
+              <th scope="col">比赛状态</th>
+              <th scope="col">报名开始时间</th>
+              <th scope="col">报名结束时间</th>
+              ${+window.localStorage.access === -1 ? '<th scope="col">报名状态</th>' : ''}
+              <th scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody id="competition"></tbody>
+        </table>
+      </div>
     </div>`;
 
   window.$('#main').append(element);
