@@ -80,9 +80,9 @@ const competitionApply = (router) => {
       return document.querySelector('input[name="competitionType"]:checked').value;
     },
     set competitionType(val) {
-      if (val === 1) {
+      if (+val === 1) {
         document.querySelector('#math').checked = true;
-      } else if (val === 0) {
+      } else if (+val === 0) {
         document.querySelector('#non-math').checked = true;
       }
     },
@@ -137,7 +137,7 @@ const competitionApply = (router) => {
       data.college = res.data.college || '请选择...';
       data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
-      data.competitionType = res.data.competition_type || 1;
+      data.competitionType = res.data.competition_type || 0;
     });
   };
 
@@ -153,7 +153,7 @@ const competitionApply = (router) => {
       data.college = res.data.college || '请选择...';
       data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
-      data.competitionType = res.data.competition_type || 1;
+      data.competitionType = res.data.competition_type || 0;
     });
   };
 
