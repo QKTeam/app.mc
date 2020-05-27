@@ -76,16 +76,6 @@ const competitionApply = (router) => {
     set major(val) {
       document.querySelector('#major').value = val;
     },
-    get competitionType() {
-      return document.querySelector('input[name="competitionType"]:checked').value;
-    },
-    set competitionType(val) {
-      if (val === 1) {
-        document.querySelector('#math').checked = true;
-      } else if (val === 0) {
-        document.querySelector('#non-math').checked = true;
-      }
-    },
   };
 
   const submit = () => {
@@ -106,7 +96,6 @@ const competitionApply = (router) => {
       major: data.major,
       school_number: data.schoolNumber,
       campus: data.campus,
-      competition_type: +data.competitionType,
     }).then(() => {
       alert('报名成功');
       window.location.hash = '/competition/list';
@@ -137,7 +126,6 @@ const competitionApply = (router) => {
       data.college = res.data.college || '请选择...';
       data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
-      data.competitionType = res.data.competition_type || 1;
     });
   };
 
@@ -153,7 +141,6 @@ const competitionApply = (router) => {
       data.college = res.data.college || '请选择...';
       data.campus = res.data.campus || '清水河校区';
       data.major = res.data.major || '';
-      data.competitionType = res.data.competition_type || 1;
     });
   };
 
@@ -281,30 +268,6 @@ const competitionApply = (router) => {
                   </div>
                 </div>
                 <p id="error-campus" style="color: red" name="error" aria-labelledby="campus"></p>
-              </div>
-              <div class="form-group">
-                <label for="competitionType">比赛类型</label>
-                <div id="competitionType">
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="competitionType"
-                      id="math"
-                      value="1">
-                    <label class="form-check-label" for="math">数学专业</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="competitionType"
-                      id="non-math"
-                      value="0">
-                    <label class="form-check-label" for="non-math">非数学专业</label>
-                  </div>
-                </div>
-                <p id="error-competition_type" style="color: red" name="error" aria-labelledby="competition_type"></p>
               </div>
               <div style="text-align: center">
                 <button id="apply-submit" type="submit" class="btn btn-primary" style="width: 100%">提交报名</button>

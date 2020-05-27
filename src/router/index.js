@@ -12,7 +12,7 @@ import layout, {
   competitionCreate,
   competitionEdit,
   competitionApply,
-  competitionInfor,
+  // competitionInfor,
   competitionMembers,
   competitionStatistics,
   competitionDetail,
@@ -77,12 +77,12 @@ router.route('/competition/apply', () => {
     competitionApply(router);
   }
 });
-router.route('/competition/infor', () => {
-  if (router.search && router.search !== '?') {
-    layout(router);
-    competitionInfor(router);
-  }
-});
+// router.route('/competition/infor', () => {
+//   if (router.search && router.search !== '?') {
+//     layout(router);
+//     competitionInfor(router);
+//   }
+// });
 router.route('/competition/members', () => {
   if (router.search && router.search !== '?') {
     layout(router);

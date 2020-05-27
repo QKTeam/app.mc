@@ -127,9 +127,6 @@ const competitionList = () => {
         case 'apply':
           window.location.hash = `/competition/apply?id=${id}`;
           break;
-        case 'infor':
-          window.location.hash = `/competition/infor?id=${id}`;
-          break;
         case 'qrcode':
           qrcodeModal.getInfo(data.find(el => el.id === +id)).show();
           break;
