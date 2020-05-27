@@ -3,27 +3,7 @@ import service from '../../service';
 
 const competitionList = () => {
   let activePart = 'allCompetition';
-  const allCompetition = {};
-  const myCompetition = {};
   const qrcodeModal = new QRCodeModal();
-
-  const applyJudge = (id) => {
-    let judgement = false;
-    Object.keys(myCompetition).forEach((key) => {
-      const obj = myCompetition[key];
-      if (obj.id === id) {
-        judgement = true;
-      }
-    });
-    return judgement;
-  };
-
-  const applyStatus = (id) => {
-    if (applyJudge(id)) {
-      return '已报名';
-    }
-    return '';
-  };
 
   const competitionStatus = (status) => {
     let des = '';
@@ -51,12 +31,13 @@ const competitionList = () => {
 
         if (+window.localStorage.access === -1) {
           submitGroup = `
+            ${obj.status === 1 ? `
             <button
               name="apply"
               aria-labelledby="${obj.id}"
               class="btn btn-link btn-sm"
               style="text-decoration: none;"
-              >${applyJudge(obj.id) ? '修改报名' : '报名'}</button>`;
+              >${obj.applyed ? '修改报名' : '报名'}</button>` : ''}`;
         } else {
           submitGroup = `
             <div>
@@ -100,7 +81,7 @@ const competitionList = () => {
             <td>${competitionStatus(obj.status)}</td>
             <td>${obj.start_time}</td>
             <td>${obj.end_time}</td>
-            ${+window.localStorage.access === -1 && `<td>${applyStatus(obj.id)}</td>`}
+            ${+window.localStorage.access === -1 && `<td>${obj.applyed ? '已报名' : ''}</td>`}
             <td style="position: sticky; right: 0; box-shadow: -3px 0 6px -6px black; background: white;">${submitGroup}</td>
           </tr>`;
 
@@ -152,23 +133,42 @@ const competitionList = () => {
     });
   };
 
-  const getData = () => {
+  const getData = async () => {
     window.$('#competition').empty();
-    service.get('/race').then((res) => {
-      res.data.forEach((obj) => {
-        allCompetition[obj.id] = obj;
-      });
-      service.get('user/races').then((r) => {
-        r.data.forEach((obj) => {
-          myCompetition[obj.id] = obj;
-        });
-        if (activePart === 'allCompetition') {
-          handle(allCompetition);
-        } else {
-          handle(myCompetition);
-        }
-      });
+    let { data: allCompetition } = await service.get('/race');
+    const { data: myCompetition } = await service.get('user/races');
+
+    const myCompetitionMap = {};
+    myCompetition.forEach((comp) => {
+      myCompetitionMap[comp.id] = true;
     });
+    allCompetition = allCompetition.map((comp) => {
+      const tmp = { ...comp, applyed: false };
+      if (myCompetitionMap[comp.id]) {
+        tmp.applyed = true;
+      }
+      return tmp;
+    });
+
+    allCompetition.sort((a, b) => b.applyed - a.applyed);
+
+    allCompetition.sort((a, b) => {
+      const aStatusOrder = a.status < 2 ? (a.status + 1) % 2 : a.status;
+      const bStatusOrder = b.status < 2 ? (b.status + 1) % 2 : b.status;
+      if (aStatusOrder < bStatusOrder) {
+        return -1;
+      }
+      if (aStatusOrder > bStatusOrder) {
+        return 1;
+      }
+      return 0;
+    });
+
+    if (activePart === 'allCompetition') {
+      handle(allCompetition);
+    } else {
+      handle(myCompetition);
+    }
   };
 
   let createPart = '';
