@@ -12,10 +12,11 @@ module.exports = {
     contentBase: './build',
     open: true,
     hot: true,
+    host: '0.0.0.0',
     port: 9000,
     proxy: {
       '/mc/api': {
-        target: config.proxyTarget || 'http://192.168.1.102:3000',
+        target: config.proxyTarget,
         pathRewrite: { '^/mc/api': config.proxyPrefix || '' },
         changeOrigin: true,
       },
@@ -28,7 +29,16 @@ module.exports = {
         loader: 'babel-loader',
         exclude: '/node_modules/',
         query: {
-          presets: ['es2015'],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  esmodules: true,
+                },
+              },
+            ],
+          ],
         },
       },
       {
