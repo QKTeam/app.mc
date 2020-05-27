@@ -2,7 +2,6 @@ import QRCodeModal from './qrcodeModal';
 import service from '../../service';
 
 const competitionList = () => {
-  let activePart = 'allCompetition';
   const qrcodeModal = new QRCodeModal();
 
   const competitionStatus = (status) => {
@@ -24,50 +23,57 @@ const competitionList = () => {
   };
 
   const handle = (data) => {
-    if (Object.keys(data).length) {
-      Object.keys(data).forEach((key, idx) => {
-        const obj = data[key];
+    if (data.length) {
+      data.forEach((comp, idx) => {
         let submitGroup;
 
         if (+window.localStorage.access === -1) {
           submitGroup = `
-            ${obj.status === 1 ? `
-            <button
-              name="apply"
-              aria-labelledby="${obj.id}"
+            <div>
+              <button
+              name="detail"
+              aria-labelledby="${comp.id}"
               class="btn btn-link btn-sm"
               style="text-decoration: none;"
-              >${obj.applyed ? '修改报名' : '报名'}</button>` : ''}`;
+              >详情</button>
+              ${comp.status === 1 ? `
+              <button
+                name="apply"
+                aria-labelledby="${comp.id}"
+                class="btn btn-link btn-sm"
+                style="text-decoration: none;"
+                >${comp.applyed ? '修改报名' : '报名'}</button>` : ''}
+            </div>`;
         } else {
           submitGroup = `
             <div>
               <button
                 name="detail"
-                aria-labelledby="${obj.id}"
+                aria-labelledby="${comp.id}"
                 class="btn btn-link btn-sm"
                 style="text-decoration: none;"
                 >详情</button>
               <button
                 name="modify"
-                aria-labelledby="${obj.id}"
+                aria-labelledby="${comp.id}"
                 class="btn btn-link btn-sm"
                 style="text-decoration: none;"
                 >修改</button>
               <button
                 name="members"
-                aria-labelledby="${obj.id}"
+                aria-labelledby="${comp.id}"
                 class="btn btn-link btn-sm"
                 style="text-decoration: none;"
                 >参赛者</button>
               <button
                 name="qrcode"
-                aria-labelledby="${obj.id}"
+                aria-labelledby="${comp.id}"
                 class="btn btn-link btn-sm"
                 style="text-decoration: none;"
                 >二维码</button>
               <button
                 name="delete"
-                aria-labelledby="${obj.id}"
+                aria-labelledby="${comp.id}"
                 class="btn btn-link btn-sm"
                 style="text-decoration: none; color: red;"
                 >删除</button>
@@ -77,11 +83,11 @@ const competitionList = () => {
         const list = `
           <tr>
             <th scope="row">${idx + 1}</th>
-            <td>${obj.name}</td>
-            <td>${competitionStatus(obj.status)}</td>
-            <td>${obj.start_time}</td>
-            <td>${obj.end_time}</td>
-            ${+window.localStorage.access === -1 && `<td>${obj.applyed ? '已报名' : ''}</td>`}
+            <td>${comp.name}</td>
+            <td>${competitionStatus(comp.status)}</td>
+            <td>${comp.start_time}</td>
+            <td>${comp.end_time}</td>
+            ${+window.localStorage.access === -1 && `<td>${comp.applyed ? '已报名' : ''}</td>`}
             <td style="position: sticky; right: 0; box-shadow: -3px 0 6px -6px black; background: white;">${submitGroup}</td>
           </tr>`;
 
@@ -125,7 +131,7 @@ const competitionList = () => {
           window.location.hash = `/competition/infor?id=${id}`;
           break;
         case 'qrcode':
-          qrcodeModal.getInfo(data[id]).show();
+          qrcodeModal.getInfo(data.find(el => el.id === +id)).show();
           break;
         default:
           break;
@@ -139,8 +145,9 @@ const competitionList = () => {
     const { data: myCompetition } = await service.get('user/races');
 
     const myCompetitionMap = {};
-    myCompetition.forEach((comp) => {
+    myCompetition.forEach((comp, idx) => {
       myCompetitionMap[comp.id] = true;
+      myCompetition[idx].applyed = true;
     });
     allCompetition = allCompetition.map((comp) => {
       const tmp = { ...comp, applyed: false };
@@ -164,11 +171,7 @@ const competitionList = () => {
       return 0;
     });
 
-    if (activePart === 'allCompetition') {
-      handle(allCompetition);
-    } else {
-      handle(myCompetition);
-    }
+    handle(allCompetition);
   };
 
   let createPart = '';
@@ -177,20 +180,9 @@ const competitionList = () => {
     createPart = '<button id="createCompetition" name="create" class="btn btn-primary">创建比赛</button>';
   }
 
-  const studentPart = `
-    <ul class="nav nav-tabs" style="margin-bottom: 10px">
-      <li class="nav-item">
-        <a id="allCompetition" class="nav-link active" style="cursor: pointer">所有比赛</a>
-      </li>
-      <li class="nav-item">
-        <a id="myCompetition" class="nav-link" style="cursor: pointer">我报名的比赛</a>
-      </li>
-    </ul>`;
-
   const element = `
     ${createPart}
     <div style="margin-top: 30px">
-      ${+window.localStorage.access === -1 ? studentPart : ''}
       <div style="overflow-x: scroll;">
         <table class="table" style="min-width: 700px;">
           <thead class="thead-light">
@@ -211,23 +203,7 @@ const competitionList = () => {
 
   window.$('#main').append(element);
 
-  if (+window.localStorage.access === -1) {
-    window.$('#allCompetition').click(() => {
-      window.$('#allCompetition').addClass('active');
-      window.$('#myCompetition').removeClass('active');
-      activePart = 'allCompetition';
-      getData();
-    });
-    window.$('#myCompetition').click(() => {
-      window.$('#allCompetition').removeClass('active');
-      window.$('#myCompetition').addClass('active');
-      activePart = 'myCompetition';
-      getData();
-    });
-  }
-  window.$(() => {
-    getData();
-  });
+  getData();
 };
 
 export default competitionList;
