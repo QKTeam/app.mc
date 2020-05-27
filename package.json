@@ -8,7 +8,7 @@
     "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
     "start": "http-server",
     "webpack": "webpack --mode development",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "dev": "webpack-dev-server"
   },
   "repository": {

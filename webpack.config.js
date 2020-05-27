@@ -8,6 +8,11 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[hash].bundle.js',
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   devServer: {
     contentBase: './build',
     open: true,
