@@ -29,13 +29,13 @@ const competitionList = () => {
     let des = '';
     switch (status) {
       case 0:
-        des = '报名未开始';
+        des = '未开始';
         break;
       case 1:
-        des = '报名进行中';
+        des = '进行中';
         break;
       case 2:
-        des = '报名已结束';
+        des = '已结束';
         break;
       default:
         break;
@@ -101,7 +101,7 @@ const competitionList = () => {
             <td>${obj.start_time}</td>
             <td>${obj.end_time}</td>
             ${+window.localStorage.access === -1 && `<td>${applyStatus(obj.id)}</td>`}
-            <td>${submitGroup}</td>
+            <td style="position: sticky; right: 0; box-shadow: -3px 0 6px -6px black; background: white;">${submitGroup}</td>
           </tr>`;
 
         window.$('#competition').append(list);
@@ -192,16 +192,16 @@ const competitionList = () => {
     <div style="margin-top: 30px">
       ${+window.localStorage.access === -1 ? studentPart : ''}
       <div style="overflow-x: scroll;">
-        <table class="table">
+        <table class="table" style="min-width: 700px;">
           <thead class="thead-light">
             <tr>
               <th scope="col"></th>
               <th scope="col">比赛名称</th>
-              <th scope="col">比赛状态</th>
+              <th scope="col">状态</th>
               <th scope="col">报名开始时间</th>
               <th scope="col">报名结束时间</th>
               ${+window.localStorage.access === -1 ? '<th scope="col">报名状态</th>' : ''}
-              <th scope="col">操作</th>
+              <th scope="col" style="position: sticky; right: 0; box-shadow: -3px 0 6px -6px black;">操作</th>
             </tr>
           </thead>
           <tbody id="competition"></tbody>
