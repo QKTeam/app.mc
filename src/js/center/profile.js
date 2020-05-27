@@ -214,6 +214,7 @@ const edit = () => {
                       type="radio"
                       name="campus"
                       id="qingshuihe"
+                      checked
                       value="清水河校区">
                     <label class="form-check-label" for="qingshuihe">清水河校区</label>
                   </div>
